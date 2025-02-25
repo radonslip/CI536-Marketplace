@@ -1,0 +1,34 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+input[type="email"],
+input[type="password"] {
+    margin: 0.75em 0 2em 0;
+    padding: 0.75em;
+    width: 15em;
+    box-sizing: border-box;
+}
+
+#error-message{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: red;
+    margin: 0.5em 0 1em 0;
+}
