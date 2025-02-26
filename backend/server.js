@@ -5,6 +5,8 @@ const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
 
+const port = 4500;
+
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
@@ -48,4 +50,5 @@ app.get("/home",function(req,res){
     res.sendFile('frontend/home.html', {root: path.dirname(__dirname)});
 });
 
-app.listen(4500);
+app.listen(port);
+console.log("Listening on " + port);
