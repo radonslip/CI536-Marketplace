@@ -1,12 +1,23 @@
 window.onload = function() 
 {
-    console.log("loaded")
+  testUser = "test@email.com"
+  console.log("sending: " + testUser)
+  socket = io.connect('http://localhost:80', {transports: ['websocket']});
 
-    fetch("http://localhost:4500/home", {
-        method: "POST",
-        body: JSON.stringify({
-          username: "test@email.com",
-        })
-      });
-      
+  img = document.getElementById("image");
+
+  socket.emit("reqImage", testUser);
+
+  socket.on("sendImage", data =>
+  {
+    // img.setAttribute('src',"data:image/jpg;base64,"+ data.toString("base64"));
+
+    var blob = new Blob([data], { type: "image/jpeg" });
+    var urlCreator = window.URL || window.webkitURL;
+    var imageUrl = urlCreator.createObjectURL(blob);
+    // var img = document.querySelector("#photo");
+    img.src = imageUrl;
+    console.log(data)
+  }
+  )
 };

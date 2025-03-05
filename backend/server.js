@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
+const fs = require('fs');
 
 const port = 4500;
 
@@ -15,7 +16,7 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 
 server.listen(80, function() {
-    console.log(`Listening on port ${80}`);
+    console.log(`Socket IO listening on port ${80}`);
   });
 
 app.use(express.static(path.join(__dirname, "../")))
@@ -75,8 +76,19 @@ app.get("/home",function(req,res){
 
 io.on("connection", (socket) =>
 {
-    console.log("Connection: ")
+    console.log("Connection: " + socket.id);
+
+    socket.on("reqImage", (args) =>
+    {
+        console.log("Request Image")
+
+        fs.readFile('images/earth.jpg', function(err, data){
+            socket.emit("sendImage", data);
+        });
+
+    })
 })
 
+
 app.listen(port);
-console.log("Listening on " + port);
+console.log("Express listening on " + port);
