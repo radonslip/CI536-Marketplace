@@ -10,7 +10,17 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../frontend')));
+
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
+
+server.listen(80, function() {
+    console.log(`Listening on port ${80}`);
+  });
+
+app.use(express.static(path.join(__dirname, "../")))
+test = path.join(__dirname, "../");
+console.log(test);
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -62,6 +72,11 @@ app.get("/home",function(req,res){
 
 //     res.end();
 // });
+
+io.on("connection", (socket) =>
+{
+    console.log("Connection: ")
+})
 
 app.listen(port);
 console.log("Listening on " + port);
