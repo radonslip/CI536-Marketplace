@@ -14,9 +14,12 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'nodejs'
+    user : 'root',
+    password : '1234',
+    database : 'nodedb',
+    connectTimeout : 10000,
+    waitForConnections : true,
+    queueLimit : 0
 });
 
 //connect to db
@@ -49,6 +52,16 @@ app.post("/", encoder, function(req,res){
 app.get("/home",function(req,res){
     res.sendFile('frontend/home.html', {root: path.dirname(__dirname)});
 });
+
+// app.post("/home", encoder, function(req,res)
+// {
+//     console.log("received")
+//     var username = req.body.username;
+
+//     res.sendFile('backend/test@email.com/earth.jpg', {root: path.dirname(__dirname)});
+
+//     res.end();
+// });
 
 app.listen(port);
 console.log("Listening on " + port);
