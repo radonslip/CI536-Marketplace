@@ -10,7 +10,43 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
+// app.use(express.static(path.join(__dirname, '../frontend'), {
+//     index: false,
+//     setHeaders: function (res, path) {
+//         if (path.endsWith('home.html')) {
+//             res.redirect('/?error=Not logged in');
+//         }
+//     }
+// }));
+
+// app.use((req, res, next) => {
+//     console.log("session: ", req.session);
+//     console.log("user: ", req.session && req.session.user);
+//     if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
+//         return res.redirect('/?error=Not logged in');
+//     }
+//     next();
+// });
+
+app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
+app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
 app.use(express.static(path.join(__dirname, '../frontend')));
+
+//express session
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false} //false for local dev
+}));
+app.use((req, res, next) => {
+    console.log("session: ", req.session);
+    console.log("user: ", req.session && req.session.user);
+    if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
+        return res.redirect('/?error=Not logged in');
+    }
+    next();
+});
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -28,26 +64,42 @@ connection.connect(function(err){
     console.log('Connection established');
 });
 
+//check if authenticated using session
+function isAuthenticated(req,res,next){
+    if(req.session && req.session.user){
+        return next();
+    } else{
+        res.redirect('/?error=Not logged in');
+    }
+}
+
 app.get("/",function(req,res){
-    res.sendFile('frontend/login.html', {root: path.dirname(__dirname)}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+    res.sendFile('login.html', {root: path.join(__dirname, '../frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
 app.post("/", encoder, function(req,res){
     var username = req.body.username;
     var password = req.body.password;
     connection.query("SELECT * FROM loginuser WHERE user_name = ? AND user_pass = ?", [username,password], function(err,results,fields){
-        if(results.length > 0){
+        if(err){
+            console.log("error: " + err);
+            res.redirect('/?error=DB error');
+            return;
+        } 
+        else if(results.length > 0){
+            console.log("logged in: ", username);
+            req.session.user = username;
             res.redirect('/home');
-        } else{
+        }
+        else{
             res.redirect('/?error=Invalid login');
             console.log('Invalid login');
         }
-        res.end();
     });
 });
 
-app.get("/home",function(req,res){
-    res.sendFile('frontend/home.html', {root: path.dirname(__dirname)});
+app.get("/home", isAuthenticated, function(req,res){
+    res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
 app.listen(port);
