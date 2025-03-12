@@ -37,7 +37,7 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false} //false for local dev
+    cookie: {secure: false} //todo false for local dev
 }));
 app.use((req, res, next) => {
     console.log("session: ", req.session);
@@ -48,6 +48,7 @@ app.use((req, res, next) => {
     next();
 });
 
+//connect to db
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -73,13 +74,15 @@ function isAuthenticated(req,res,next){
     }
 }
 
+//get login page
 app.get("/",function(req,res){
     res.sendFile('login.html', {root: path.join(__dirname, '../frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
+//login with db query
 app.post("/", encoder, function(req,res){
-    var username = req.body.username;
-    var password = req.body.password;
+    let username = req.body.username;
+    let password = req.body.password;
     connection.query("SELECT * FROM loginuser WHERE user_name = ? AND user_pass = ?", [username,password], function(err,results,fields){
         if(err){
             console.log("error: " + err);
@@ -98,8 +101,44 @@ app.post("/", encoder, function(req,res){
     });
 });
 
+//get home page if logged in
 app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+});
+
+//get image file
+// app.get("/image/:filename", (req, res) => {
+//     const filename = req.params.filename;
+//     const imagePath = path.join(__dirname, "../listings/images", filename); // image directory
+
+//     res.sendFile(imagePath, (err) => {
+//         if (err) {
+//             res.status(404).send("Image not found");
+//         }
+//     });
+// });
+
+//get image db query
+app.get("/listings/:image_id/:listing_id/image.png", (req, res) => {
+    let imageId = req.params.image_id;
+    let listingId = req.params.listing_id;
+    
+    connection.query("SELECT * FROM listing_images WHERE image_id = ? AND listing_id = ?", [imageId,listingId], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Database error" });
+        } else if (results.length > 0) {
+            // Modify image path to be served via our route
+            const imagePath = path.join(__dirname, `../listings/${listingId}/${imageId}/image.png`);
+            console.log(imagePath);
+            res.sendFile(imagePath, (err) => {
+                if (err) {
+                    res.status(404).send("Image not found");
+                }
+            });
+        } else {
+            res.status(404).json({ error: "Listing not found" });
+        }
+    });
 });
 
 app.listen(port);
