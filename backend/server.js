@@ -28,9 +28,10 @@ const app = express();
 //     next();
 // });
 
-app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
-app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
-app.use(express.static(path.join(__dirname, '../frontend')));
+//https://dev.to/husnain/how-to-deploy-node-or-react-app-on-cpanel-which-uses-a-port-using-ssh-a5b
+app.use('/authenticated', express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated')));
+app.use('/unauthenticated', express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated')));
+app.use(express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend')));
 
 //express session
 app.use(session({
@@ -50,9 +51,9 @@ app.use((req, res, next) => {
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'nodejs'
+    user: 'tg571_node',
+    password: 'ciG6wbVuQk.o',
+    database: 'tg571_MARKETPLACE'
 });
 
 //connect to db
@@ -74,7 +75,8 @@ function isAuthenticated(req,res,next){
 }
 
 app.get("/",function(req,res){
-    res.sendFile('login.html', {root: path.join(__dirname, '../frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+    res.sendFile('login.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+    //res.sendFile(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated/login.html'));
 });
 
 app.post("/", encoder, function(req,res){
@@ -99,7 +101,7 @@ app.post("/", encoder, function(req,res){
 });
 
 app.get("/home", isAuthenticated, function(req,res){
-    res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+    res.sendFile('home.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')});
 });
 
 app.listen(port);
