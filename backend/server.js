@@ -41,8 +41,8 @@ app.use(session({
     cookie: {secure: false} //false for local dev
 }));
 app.use((req, res, next) => {
-    console.log("session: ", req.session);
-    console.log("user: ", req.session && req.session.user);
+    //console.log("session: ", req.session);
+    //console.log("user: ", req.session && req.session.user);
     if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
         return res.redirect('/?error=Not logged in');
     }
@@ -115,7 +115,6 @@ app.get("/listings/:image_id/:listing_id/image.png", (req, res) => {
         } else if (results.length > 0) {
             // Modify image path to be served via our route
             const imagePath = path.join(__dirname, `../listings/${listingId}/${imageId}/image.png`);
-            console.log(imagePath);
             res.sendFile(imagePath, (err) => {
                 if (err) {
                     res.status(404).send("Image not found");
