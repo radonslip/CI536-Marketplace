@@ -49,7 +49,9 @@ app.use((req, res, next) => {
     next();
 });
 
-const connection = mysql.createConnection({
+//https://stackoverflow.com/questions/62159271/nodejs-mysql-reconnecting-on-connection-loss
+const connection = mysql.createPool({
+    connectionLimit: 10,
     host: 'localhost',
     user: 'tg571_node',
     password: 'ciG6wbVuQk.o',
