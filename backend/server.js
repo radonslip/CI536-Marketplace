@@ -118,11 +118,12 @@ app.get("/home", isAuthenticated, function(req,res){
 //     });
 // });
 
+//why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
 //get image db query
-app.get("/listings/:image_id/:listing_id/image.png", (req, res) => {
+app.get("/listings/:image_id/:listing_id/image.png", (req, res) => { //https://expressjs.com/en/guide/routing.html
     let imageId = req.params.image_id;
     let listingId = req.params.listing_id;
-    
+    //https://dev.mysql.com/doc/refman/8.0/en/symbolic-links-to-databases.html
     connection.query("SELECT * FROM listing_images WHERE image_id = ? AND listing_id = ?", [imageId,listingId], (err, results) => {
         if (err) {
             res.status(500).json({ error: "Database error" });
