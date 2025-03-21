@@ -40,8 +40,8 @@ app.use(session({
     cookie: {secure: false} //false for local dev
 }));
 app.use((req, res, next) => {
-    console.log("session: ", req.session);
-    console.log("user: ", req.session && req.session.user);
+    //console.log("session: ", req.session);
+    //console.log("user: ", req.session && req.session.user);
     if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
         return res.redirect('/?error=Not logged in');
     }
