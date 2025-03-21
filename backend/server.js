@@ -10,23 +10,6 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
-// app.use(express.static(path.join(__dirname, '../frontend'), {
-//     index: false,
-//     setHeaders: function (res, path) {
-//         if (path.endsWith('home.html')) {
-//             res.redirect('/?error=Not logged in');
-//         }
-//     }
-// }));
-
-// app.use((req, res, next) => {
-//     console.log("session: ", req.session);
-//     console.log("user: ", req.session && req.session.user);
-//     if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
-//         return res.redirect('/?error=Not logged in');
-//     }
-//     next();
-// });
 
 app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
 app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
@@ -105,18 +88,6 @@ app.post("/", encoder, function(req,res){
 app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
-
-//get image file
-// app.get("/image/:filename", (req, res) => {
-//     const filename = req.params.filename;
-//     const imagePath = path.join(__dirname, "../listings/images", filename); // image directory
-
-//     res.sendFile(imagePath, (err) => {
-//         if (err) {
-//             res.status(404).send("Image not found");
-//         }
-//     });
-// });
 
 //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
 //get image db query
