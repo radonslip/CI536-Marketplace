@@ -10,23 +10,6 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
-// app.use(express.static(path.join(__dirname, '../frontend'), {
-//     index: false,
-//     setHeaders: function (res, path) {
-//         if (path.endsWith('home.html')) {
-//             res.redirect('/?error=Not logged in');
-//         }
-//     }
-// }));
-
-// app.use((req, res, next) => {
-//     console.log("session: ", req.session);
-//     console.log("user: ", req.session && req.session.user);
-//     if (req.path.endsWith('home.html') && (!req.session || !req.session.user)) {
-//         return res.redirect('/?error=Not logged in');
-//     }
-//     next();
-// });
 
 app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
 app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
@@ -37,7 +20,7 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false} //false for local dev
+    cookie: {secure: false} //todo false for local dev
 }));
 app.use((req, res, next) => {
     //console.log("session: ", req.session);
@@ -48,6 +31,7 @@ app.use((req, res, next) => {
     next();
 });
 
+//connect to db
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -73,13 +57,15 @@ function isAuthenticated(req,res,next){
     }
 }
 
+//get login page
 app.get("/",function(req,res){
     res.sendFile('login.html', {root: path.join(__dirname, '../frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
+//login with db query
 app.post("/", encoder, function(req,res){
-    var username = req.body.username;
-    var password = req.body.password;
+    let username = req.body.username;
+    let password = req.body.password;
     connection.query("SELECT * FROM loginuser WHERE user_name = ? AND user_pass = ?", [username,password], function(err,results,fields){
         if(err){
             console.log("error: " + err);
@@ -98,8 +84,33 @@ app.post("/", encoder, function(req,res){
     });
 });
 
+//get home page if logged in
 app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+});
+
+//why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
+//get image db query
+app.get("/listings/:image_id/:listing_id/image.png", (req, res) => { //https://expressjs.com/en/guide/routing.html
+    let imageId = req.params.image_id;
+    let listingId = req.params.listing_id;
+    //https://dev.mysql.com/doc/refman/8.0/en/symbolic-links-to-databases.html
+    connection.query("SELECT * FROM listing_images WHERE image_id = ? AND listing_id = ?", [imageId,listingId], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Database error" });
+        } else if (results.length > 0) {
+            // Modify image path to be served via our route
+            const imagePath = path.join(__dirname, `../listings/${listingId}/${imageId}/image.png`);
+            console.log(imagePath);
+            res.sendFile(imagePath, (err) => {
+                if (err) {
+                    res.status(404).send("Image not found");
+                }
+            });
+        } else {
+            res.status(404).json({ error: "Listing not found" });
+        }
+    });
 });
 
 app.listen(port);
