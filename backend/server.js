@@ -35,8 +35,8 @@ app.use((req, res, next) => {
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password',
-    database: 'nodejs'
+    password: '1234',
+    database: 'gendb'
 });
 
 //connect to db
