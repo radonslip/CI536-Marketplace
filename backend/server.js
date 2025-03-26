@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
+const fs = require("fs");
 
 var cors = require('cors');
 
@@ -126,11 +127,18 @@ app.get("/listing/:listing_id", isAuthenticated, function(req,res){
 app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
 
   const body = req.body
-  console.log(body);
+//   console.log(body);
   //should print test
-  console.log(body.listingID)
+//   console.log(body.listingID)
 
   let listId = body.listingID;
+  let count = 0;
+  let dir = path.join(__dirname, `../listings/${listId}`)
+
+  fs.readdir(dir, (err, files) => {
+    count = files.length;
+    // console.log(count);
+  });
 
     connection.query("SELECT * FROM listings WHERE listing_id = ?", [listId], (err, results) => {
         if (err) 
@@ -139,20 +147,38 @@ app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
         } 
         else if (results.length > 0) 
         {
-            console.log(results[0])
-            //returning data back to frontend
+            console.log(results[0].listing_title)
             return res.json({
                 status: 'success',
                 title: results[0].listing_title,
                 desc: results[0].listing_description,
-                price: results[0].listing_price
+                price: results[0].listing_price,
+                numOImg: count
             })
         } 
         else 
         {
+            console.log("not found")
             res.status(404).json({ error: "Listing not found" });
         }
     });
+    
+});
+
+app.get("/listing/:listing_id/:img_id", isAuthenticated, function(req,res){
+
+    let listId = req.params.listing_id;
+    let imageId = req.params.img_id;
+
+    const imagePath = path.join(__dirname, `../listings/${listId}/${imageId}.png`);
+    console.log(imagePath);
+    res.sendFile(imagePath, (err) => {
+        if (err) {
+            res.status(404).send("Image not found");
+        }
+    });
+
+    console.log("Image Request")
     
 });
 
