@@ -11,6 +11,12 @@ window.addEventListener('load', function () {
 
     let fieldsOK = true;
 
+    //https://stackoverflow.com/a/9204568
+    function validateEmail(email) {
+        var emailRegex = /\S+@\S+\.\S+/;
+        return emailRegex.test(email);
+    }
+
     form.addEventListener('submit', async function (evt) {
 
         evt.preventDefault();
@@ -20,7 +26,7 @@ window.addEventListener('load', function () {
 
         let fieldsOK = true;
 
-        if (username.length == 0) {
+        if (username.length == 0 || !validateEmail(username)) {
             hidUsername.style.display = 'inline';
             fieldsOK = false;
         } else {
