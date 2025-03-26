@@ -1,4 +1,4 @@
-let id = 2;
+let id = 1;
 
 fetch("/listing/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({listingID:id})})
 .then(res=> res.json())
