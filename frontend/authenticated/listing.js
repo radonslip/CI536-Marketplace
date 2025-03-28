@@ -1,4 +1,8 @@
-let id = 1;
+let loc = window.location.href;
+
+console.log(loc[loc.length-1])
+
+let id = loc[loc.length-1]
 
 fetch("/listing/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({listingID:id})})
 .then(res=> res.json())
