@@ -93,6 +93,42 @@ app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
+// Send data about the listing to the home page
+app.post("/home", encoder, isAuthenticated, function(req,res){
+
+    const body = req.body
+  
+  // Listing id
+    let listId = body.listingID;
+    console.log(listId)
+
+  
+  //   Find the Listing
+      connection.query("SELECT * FROM listings WHERE listing_id = ?", [listId], (err, results) => {
+          if (err) 
+          {
+              // Error if the database cannot be reached
+              res.status(500).json({ error: "Database error" });
+          } 
+          else if (results.length > 0) 
+          {
+              // If the listing was found return the data about it
+              return res.json({
+                  status: 'success',
+                  title: results[0].listing_title,
+                  price: results[0].listing_price
+              })
+          } 
+          else 
+          {
+              // If the listing was not found then throw an error
+              console.log("not found")
+              res.status(404).json({ error: "Listing not found" });
+          }
+      });
+      
+  });
+
 //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
 //get image db query
 app.get("/listings/:listing_id/:image_id/image.png", (req, res) => { //https://expressjs.com/en/guide/routing.html
