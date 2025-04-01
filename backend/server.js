@@ -117,37 +117,38 @@ app.get("/listings/:listing_id/:image_id/image.png", (req, res) => { //https://e
     });
 });
 
+// Send listing page to client
 app.get("/listing/:listing_id", isAuthenticated, function(req,res){
 
     res.sendFile('listing.html', {root: path.join(__dirname, '../frontend/authenticated/')});
-    // res.sendFile('listing.js', {root: path.join(__dirname, '../frontend/authenticated/')});
     
 });
 
+// Send data about the listing to the client
 app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
 
   const body = req.body
-//   console.log(body);
-  //should print test
-//   console.log(body.listingID)
 
+// Listing Metadata
   let listId = body.listingID;
   let count = 0;
   let dir = path.join(__dirname, `../listings/${listId}`)
 
+// Get how many images need to be returned to the client
   fs.readdir(dir, (err, files) => {
     count = files.length;
-    // console.log(count);
   });
 
+//   Find the Listing
     connection.query("SELECT * FROM listings WHERE listing_id = ?", [listId], (err, results) => {
         if (err) 
         {
+            // Error if the database cannot be reached
             res.status(500).json({ error: "Database error" });
         } 
         else if (results.length > 0) 
         {
-            console.log(results[0].listing_title)
+            // If the listing was found return the data about it
             return res.json({
                 status: 'success',
                 title: results[0].listing_title,
@@ -158,6 +159,7 @@ app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
         } 
         else 
         {
+            // If the listing was not found then throw an error
             console.log("not found")
             res.status(404).json({ error: "Listing not found" });
         }
@@ -165,20 +167,20 @@ app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
     
 });
 
+// Return listing images to the client when requested
 app.get("/listing/:listing_id/:img_id", isAuthenticated, function(req,res){
 
+    // Find the listing directory
     let listId = req.params.listing_id;
     let imageId = req.params.img_id;
-
     const imagePath = path.join(__dirname, `../listings/${listId}/${imageId}.png`);
-    console.log(imagePath);
+
+    // Send the image to the clint to be displayed, throw an error if not found.
     res.sendFile(imagePath, (err) => {
         if (err) {
             res.status(404).send("Image not found");
         }
     });
-
-    console.log("Image Request")
     
 });
 
