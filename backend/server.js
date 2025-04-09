@@ -179,7 +179,7 @@ app.get("/listings/:listing_id/:image_id/image.png", (req, res) => { //https://e
 // Send listing page to client
 app.get("/listing/:listing_id", isAuthenticated, function(req,res){
 
-    res.sendFile('listing.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+    res.sendFile('listing.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')});
     
 });
 
