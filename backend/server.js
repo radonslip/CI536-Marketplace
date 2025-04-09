@@ -116,27 +116,6 @@ app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')});
 });
 
-//get image db query
-app.get("/listings/:image_id/:listing_id/image.png", (req, res) => {
-    let imageId = req.params.image_id;
-    let listingId = req.params.listing_id;
-    
-    connection.query("SELECT * FROM listing_images WHERE image_id = ? AND listing_id = ?", [imageId,listingId], (err, results) => {
-        if (err) {
-            res.status(500).json({ error: "Database error" });
-        } else if (results.length > 0) {
-            // Modify image path to be served via our route
-            const imagePath = path.join(__dirname, `../listings/${listingId}/${imageId}/image.png`);
-            res.sendFile(imagePath, (err) => {
-                if (err) {
-                    res.status(404).send("Image not found");
-                }
-            });
-        } else {
-            res.status(404).json({ error: "Listing not found" });
-        }
-    });
-});
 
 // Send data about the listing to the home page
 app.post("/home", encoder, isAuthenticated, function(req,res){
