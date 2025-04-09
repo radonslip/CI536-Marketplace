@@ -47,12 +47,13 @@ const connection = mysql.createPool({
 });
 
 //connect to db
-connection.connect(function(err){
+connection.getConnection((err, conn) => {
     if (err) {
         console.log('Error connecting to database', err);
         return;
     }
     console.log('Connection established');
+    conn.release(); //release connection to pool
 });
 
 //check if authenticated using session
