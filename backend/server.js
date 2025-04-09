@@ -116,7 +116,6 @@ app.get("/home", isAuthenticated, function(req,res){
     res.sendFile('home.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')});
 });
 
-
 // Send data about the listing to the home page
 app.post("/home", encoder, isAuthenticated, function(req,res){
 
