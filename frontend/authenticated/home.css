@@ -1,0 +1,77 @@
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 5fr;
+    grid-template-areas:
+        "banner banner"
+        "sidebar main";
+}
+
+body {
+    margin: 0; /* Removes default body margin */
+    font-family: Arial, sans-serif; /* Optional for font consistency */
+}
+
+#banner {
+    background-color: rgb(149, 232, 247);
+    grid-area: banner;
+    color: black;
+    padding: 1rem;
+}
+
+#sidebar {
+    background-color: rgb(10, 204, 238);
+    grid-area: sidebar;
+    color: white;
+    padding: 1rem;
+    border-left: 5px;
+    border-color: black;
+}
+
+button{
+    display: block;
+    width: 100%;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+main {
+    background-color: rgb(241, 244, 220);
+    grid-area: main;
+    padding: 1rem;
+    overflow: scroll;
+}
+
+#market{
+    display: none;
+}
+
+@media (max-width: 500px){
+
+    .container {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 5fr;
+        grid-template-areas:
+            "sidebar"
+            "main";
+    }
+
+    #banner{
+        display: none;
+    }
+
+    #market{
+        display: block;
+    }
+
+    button{
+        width: auto;
+        display: inline;
+    }
+
+}
+
