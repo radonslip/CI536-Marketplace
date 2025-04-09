@@ -20,6 +20,7 @@ const app = express();
 app.use('/authenticated', express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated')));
 app.use('/unauthenticated', express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated')));
 app.use(express.static(path.join(__dirname, '../../public_html/ci536-marketplace/frontend')));
+app.use(express.json());
 
 //express session
 app.use(session({
