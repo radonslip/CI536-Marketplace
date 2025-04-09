@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
+const bcrypt = require('bcrypt'); //for hashing passwords https://medium.com/@vuongtran/using-node-js-bcrypt-module-to-hash-password-5343a2aa2342
 
 const port = 4500;
 
@@ -63,19 +64,36 @@ app.get("/",function(req,res){
 });
 
 //login with db query
-app.post("/", encoder, function(req,res){
+app.post("/", encoder, async function(req,res){
     let username = req.body.username;
     let password = req.body.password;
-    connection.query("SELECT * FROM loginuser WHERE user_name = ? AND user_pass = ?", [username,password], function(err,results,fields){
+    connection.query("SELECT * FROM loginuser WHERE user_name = ?", [username], async function(err,results,fields){
         if(err){
             console.log("error: " + err);
             res.redirect('/?error=DB error');
             return;
         } 
         else if(results.length > 0){
-            console.log("logged in: ", username);
-            req.session.user = username;
-            res.redirect('/home');
+            const user = results[0];
+
+            try {
+                //compare password with hashed password in database
+                /*hash generated using: 
+                const hashedPassword = await bcrypt.hash(user.user_pass, 10);
+                where 10 is the salt rounds to generate a salt to be used*/
+                const match = await bcrypt.compare(password, user.user_pass);
+                if (match) {
+                    console.log("logged in: ", username);
+                    req.session.user = username;
+                    res.redirect('/home');
+                } else {
+                    console.log("Incorrect password");
+                    res.redirect('/?error=Invalid login');
+                }
+            } catch (err) {
+                console.log("Error comparing passwords: " + err);
+                res.redirect('/?error=Server error');
+            }
         }
         else{
             res.redirect('/?error=Invalid login');
