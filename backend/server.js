@@ -80,6 +80,8 @@ app.post("/", encoder, async function(req,res){
         } 
         else if(results.length > 0){
             const user = results[0];
+            const hashedPassword = await bcrypt.hash(user.user_pass, 10);
+            console.log(hashedPassword)
 
             try {
                 //compare password with hashed password in database
