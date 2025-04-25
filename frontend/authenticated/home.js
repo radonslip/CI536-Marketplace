@@ -12,10 +12,24 @@ for (let id = 1; id < num+1; id++)
         if (data.status == 'success') 
         {
             // Create the listing and add it to the home page
-            const listing = document.createElement("a");
-            listing.innerText = data.title;
-            listing.href = "listing/" + id;
-            document.body.appendChild(listing);
+            const listing = document.createElement("div");
+            listingLink = document.createElement("a");
+            listingLink.href = "listing/" + id;
+            listing.appendChild(listingLink);
+
+            title = document.createElement("h3");
+            title.innerText = data.title;
+            listingLink.appendChild(title);
+
+            image = document.createElement("img");
+            image.src = "/listing/" + id + "/" + 0;
+            listingLink.appendChild(image);
+
+            price = document.createElement("p");
+            price.innerText = data.price;
+            listingLink.appendChild(price);
+
+            document.getElementById("listingsList").appendChild(listing);
         }
     })
 }

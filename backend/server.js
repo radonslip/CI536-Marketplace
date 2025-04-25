@@ -111,7 +111,7 @@ app.post("/", encoder, async function(req,res){
 
 //get home page if logged in
 app.get("/home", isAuthenticated, function(req,res){
-    res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+    res.sendFile('homeExample.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
 // Send data about the listing to the home page
