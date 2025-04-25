@@ -1,0 +1,32 @@
+.container{
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+body{
+    text-align: center;
+}
+input,label{
+    display: grid
+    
+}
+
+input{
+    margin-bottom: 1em;
+    width: 60%;
+}
+
+form{
+    display: grid;
+    width: 70%;
+}
+fieldset{
+    display: grid;
+    place-items: center;
+}
+
+#submitBtn{
+    width: 40%;
+    min-width: 20%;
+}
