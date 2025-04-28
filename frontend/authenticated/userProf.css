@@ -23,7 +23,7 @@ text-align: center;
 
   .container {
       
-          background-color: rgb(209 233 212);
+          background-color: #fbfbca;
           width: 700px;
           border: 10px solid rgb(0, 0, 0);
           height: 900px;
@@ -108,7 +108,7 @@ text-align: center;
   border-width: 3px;
   border-color: black;
   border-style: solid;
-  background-color: #5ee877;
+  background-color: #f1f18e;
   font-size: 22px;
   
 
@@ -117,7 +117,7 @@ text-align: center;
 .navigation {
 
 border: 5;
-background-color: #57f34a;
+background-color: #fbfbca;
 border-style:solid;
 border-color: black;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -159,7 +159,7 @@ padding: 0;
 }
 
 .navigation a:hover {
-background-color: #36873e;
+background-color: #5ee877;
 color: #000000;
 }
 
@@ -169,3 +169,19 @@ color: #9c9c9c;
 
 
 
+@media (max-width: 900px) {
+.container{
+  width: auto;
+
+}
+
+.navigation {
+  width: auto;
+display: inline;
+}
+
+
+.body {
+  display: none;
+}
+}
