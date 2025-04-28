@@ -29,7 +29,7 @@ for (let id = 1; id < num+1; id++)
             price.innerText = data.price;
             listingLink.appendChild(price);
 
-            document.getElementById("listingsList").appendChild(listing);
+            document.querySelector("#listingsList").appendChild(listing);
         }
     })
 }
