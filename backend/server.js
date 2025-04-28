@@ -81,7 +81,7 @@ app.post("/", encoder, async function(req,res){
         else if(results.length > 0){
             const user = results[0];
             const hashedPassword = await bcrypt.hash(user.user_pass, 10);
-            console.log(hashedPassword)
+            // console.log(hashedPassword)
 
             try {
                 //compare password with hashed password in database
@@ -121,7 +121,7 @@ app.post("/home", encoder, isAuthenticated, function(req,res){
   
   // Listing id
     let listId = body.listingID;
-    console.log(listId)
+    // console.log(listId)
 
   
   //   Find the Listing
@@ -154,29 +154,20 @@ app.get("/user/:user_id", isAuthenticated,function(req,res){
     res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
+app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
+    const imagePath = path.join(__dirname, `../frontend/authenticated/Images/profilepicture.jpg`);
+    console.log(imagePath)
+
+    res.sendFile(imagePath, (err) => {
+        if (err) {
+            res.status(404).send("Image not found test");
+        }
+    });
+    // res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+});
+
 // //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
 // //get image db query
-// app.get("/listings/:listing_id/:image_id/image.png", (req, res) => { //https://expressjs.com/en/guide/routing.html
-//     let imageId = req.params.image_id;
-//     let listingId = req.params.listing_id;
-//     //https://dev.mysql.com/doc/refman/8.0/en/symbolic-links-to-databases.html
-//     connection.query("SELECT * FROM listing_images WHERE image_id = ? AND listing_id = ?", [imageId,listingId], (err, results) => {
-//         if (err) {
-//             res.status(500).json({ error: "Database error" });
-//         } else if (results.length > 0) {
-//             // Modify image path to be served via our route
-//             const imagePath = path.join(__dirname, `../listings/${listingId}/${imageId}/image.png`);
-//             //console.log(imagePath);
-//             res.sendFile(imagePath, (err) => {
-//                 if (err) {
-//                     res.status(404).send("Image not found");
-//                 }
-//             });
-//         } else {
-//             res.status(404).json({ error: "Listing not found" });
-//         }
-//     });
-// });
 
 // Send listing page to client
 app.get("/listing/:listing_id", isAuthenticated, function(req,res){
