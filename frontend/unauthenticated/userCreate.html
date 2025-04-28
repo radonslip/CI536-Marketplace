@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="unauthenticated/userCreate.css" rel="stylesheet" type="text/css" />
+    <script src="unauthenticated/userCreate.js"></script>
+    <title>Create User Profile</title>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/createuser" method="POST">
+            <fieldset>
+                <h2>Create user</h2>
+
+                <label for="username">Enter your Email:</label>
+                <input id="username" name="username" type="email">
+
+                <label for="password">Create a password:</label>
+                <input id="password" name="password" type="password">
+
+                <label for="confirmPassword">Re-enter your Password</label>
+                <input id="confirmPassword" type="password">
+                <input type="submit" value="Submit">
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>

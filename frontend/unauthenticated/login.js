@@ -1,11 +1,11 @@
 window.addEventListener('load', function () {
 
     const inputUser = document.querySelector('#username'),
-        inputPwd = document.querySelector('#pwd'),
+    inputPwd = document.querySelector('#password'),
 
-        hideUsername = document.querySelector('#hidUsername'),
-        hidePwd = document.querySelector('#hidPwd'),
-        divLogin = document.querySelector('#login');
+    hideUsername = document.querySelector('#hidUsername'),
+    hidePwd = document.querySelector('#hidPwd'),
+    divLogin = document.querySelector('#login');
 
     form = login.querySelector('form');
 
@@ -47,6 +47,10 @@ window.addEventListener('load', function () {
             form.submit();
         }
 
+    });
+
+    this.document.querySelector("#userCreate").addEventListener("click", function () {
+        window.location.href = "createUser";
     });
 
     //show error message

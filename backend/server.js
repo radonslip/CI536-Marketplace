@@ -150,8 +150,32 @@ app.post("/home", encoder, isAuthenticated, function(req,res){
       
   });
 
+  //get user profile page
 app.get("/user/:user_id", isAuthenticated,function(req,res){
     res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+});
+
+//get user creation page
+app.get("/createuser", function(req,res){
+    res.sendFile('userCreate.html', {root: path.join(__dirname, '../frontend/unauthenticated/')});
+});
+
+//create user when form submitted
+app.post("/createuser/", encoder, async function(req,res){
+    let username = req.body.username;
+    let password = req.body.password;
+
+    const hashedPassword = await bcrypt.hash(password, 10); //hash password using bcrypt with salt rounds of 10
+    connection.query(
+        "INSERT INTO loginuser (user_name, user_pass) VALUES (?)", [[username, hashedPassword]], async function(err,results,fields){
+        if(err) {
+            console.log(`Error creating user: ${username}: `, err);
+        }
+        else {
+            console.log("User created: ", username);
+            res.redirect('/?error=User created, please login');
+        }
+        });
 });
 
 // //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
