@@ -75,3 +75,18 @@ main {
 
 }
 
+img{
+    max-width: 400px;
+    min-width: 400px;
+    display: inline;
+}
+
+#images{
+    width: 1000px;
+    height: 400px;
+    overflow: auto;
+    overflow-y: hidden;
+    margin: 0 auto;
+    white-space: nowrap
+}
+
