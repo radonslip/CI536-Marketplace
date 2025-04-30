@@ -72,7 +72,7 @@ app.get("/",function(req,res){
 app.post("/", encoder, async function(req,res){
     let username = req.body.username;
     let password = req.body.password;
-    connection.query("SELECT * FROM loginuser WHERE user_name = ?", [username], async function(err,results,fields){
+    connection.query("SELECT * FROM users WHERE user_name = ?", [username], async function(err,results,fields){
         if(err){
             console.log("error: " + err);
             res.redirect('/?error=DB error');
@@ -167,7 +167,7 @@ app.post("/createuser/", encoder, async function(req,res){
 
     const hashedPassword = await bcrypt.hash(password, 10); //hash password using bcrypt with salt rounds of 10
     connection.query(
-        "INSERT INTO loginuser (user_name, user_pass) VALUES (?)", [[username, hashedPassword]], async function(err,results,fields){
+        "INSERT INTO users (user_name, user_pass) VALUES (?)", [[username, hashedPassword]], async function(err,results,fields){
         if(err) {
             console.log(`Error creating user: ${username}: `, err);
         }
