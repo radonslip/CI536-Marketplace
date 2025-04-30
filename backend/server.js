@@ -156,8 +156,13 @@ app.get("/user/:user_id", isAuthenticated,function(req,res){
 });
 
 //get user creation page
-app.get("/createuser", function(req,res){
+app.get("/create/user", function(req,res){
     res.sendFile('userCreate.html', {root: path.join(__dirname, '../frontend/unauthenticated/')});
+});
+
+//get listing creation page
+app.get("/create/listing", function(req,res){
+    res.sendFile('createListing.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
 //create user when form submitted
