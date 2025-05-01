@@ -14,19 +14,21 @@ body {
 }
 
 #banner {
-    background-color: rgb(149, 232, 247);
+    background-color: rgb(95 237 120);
     grid-area: banner;
     color: black;
     padding: 1rem;
+    border-bottom-style: solid;
+    border-color: rgb(84, 190, 2);
 }
 
 #sidebar {
-    background-color: rgb(10, 204, 238);
+    background-color: rgb(154, 255, 170);
     grid-area: sidebar;
     color: white;
     padding: 1rem;
-    border-left: 5px;
-    border-color: black;
+    border-right-style: solid;
+    border-color: rgb(84, 190, 2);
 }
 
 button{
@@ -35,10 +37,16 @@ button{
     padding: 1em;
     margin-top: 1em;
     margin-bottom: 1em;
+    background-color: rgb(253, 253, 247);
+}
+
+button:hover{
+    background-color: blueviolet;
+    color: rgb(253, 253, 247);
 }
 
 main {
-    background-color: rgb(241, 244, 220);
+    background-color: rgb(253, 253, 247);
     grid-area: main;
     padding: 1rem;
     overflow: scroll;
@@ -71,6 +79,11 @@ main {
     button{
         width: auto;
         display: inline;
+    }
+
+    #sidebar{
+        border-bottom-style: solid;
+        border-color: rgb(84, 190, 2);
     }
 
 }
