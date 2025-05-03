@@ -99,7 +99,7 @@ img{
     height: 400px;
     overflow: auto;
     overflow-y: hidden;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     white-space: nowrap;
 }
 

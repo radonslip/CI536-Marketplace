@@ -42,7 +42,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '1234',
-    database: 'gendb'
+    database: 'sys'
 });
 
 //connect to db
@@ -117,34 +117,26 @@ app.get("/home", isAuthenticated, function(req,res){
 // Send data about the listing to the home page
 app.post("/home", encoder, isAuthenticated, function(req,res){
 
-    const body = req.body
-  
-  // Listing id
-    let listId = body.listingID;
-    // console.log(listId)
+    // How many listings need to be returned
+    let numOfListings = req.body.numOfListings
+    // console.log(numOfListings)
 
-  
-  //   Find the Listing
-      connection.query("SELECT * FROM listings WHERE listing_id = ?", [listId], (err, results) => {
-          if (err) 
+  //   Find the Listings
+      connection.query("SELECT * FROM listings", (err, results) => {
+          if (err) // Error if the database cannot be reached
           {
-              // Error if the database cannot be reached
-              res.status(500).json({ error: "Database error" });
+            res.status(500).json({ error: "Database error" });
           } 
-          else if (results.length > 0) 
+          else if (results.length > 0) // If a result was found then return it to the client
           {
-              // If the listing was found return the data about it
-              return res.json({
-                  status: 'success',
-                  title: results[0].listing_title,
-                  price: results[0].listing_price
-              })
+            responseData = results.slice(0,numOfListings)
+            // console.log(responseData)
+            return res.json(responseData)
           } 
-          else 
+          else // If no result was found return 404
           {
-              // If the listing was not found then throw an error
-              console.log("not found")
-              res.status(404).json({ error: "Listing not found" });
+            console.log("not found")
+            res.status(404).json({ error: "Listing not found" });
           }
       });
       
