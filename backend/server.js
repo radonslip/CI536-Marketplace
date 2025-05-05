@@ -118,31 +118,57 @@ app.get("/home", isAuthenticated, function(req,res){
 app.post("/home", encoder, isAuthenticated, function(req,res){
 
     // How many listings need to be returned
-    let numOfListings = req.body.numOfListings
+    let numOfListings = req.body.numOfListings;
+    let searchQuery = req.body.searchQuery;
+    console.log("search q: " + searchQuery);
     // console.log(numOfListings)
 
-  //   Find the Listings
-      connection.query("SELECT * FROM listings", (err, results) => {
-          if (err) // Error if the database cannot be reached
-          {
+    //   Find the Listings
+    //https://www.geeksforgeeks.org/how-to-make-a-search-function-using-node-express-and-mysql/
+    if (searchQuery && searchQuery.trim() !== "") //if search entered then search for it in the database
+    {
+        let searchSQL = `%${searchQuery.trim()}%`; //add wildcards and trim whitespace
+        console.log("searchSQL: ", searchSQL);
+        connection.query("SELECT * FROM listings WHERE listing_title LIKE ?", [searchSQL], (err, results) => {
+            if (err) // Error if the database cannot be reached
+            {
             res.status(500).json({ error: "Database error" });
-          } 
-          else if (results.length > 0) // If a result was found then return it to the client
-          {
-            responseData = results.slice(0,numOfListings)
+            } 
+            else if (results.length > 0) // If a result was found then return it to the client
+            {
+            responseData = results.slice(0,numOfListings);
             // console.log(responseData)
-            return res.json(responseData)
-          } 
-          else // If no result was found return 404
-          {
-            console.log("not found")
+            return res.json(responseData);
+            } 
+            else // If no result was found return 404
+            {
+            console.log("not found");
             res.status(404).json({ error: "Listing not found" });
-          }
-      });
+            }
+        });
+    } else {
+        connection.query("SELECT * FROM listings", (err, results) => {
+            if (err) // Error if the database cannot be reached
+            {
+            res.status(500).json({ error: "Database error" });
+            } 
+            else if (results.length > 0) // If a result was found then return it to the client
+            {
+            responseData = results.slice(0,numOfListings);
+            // console.log(responseData)
+            return res.json(responseData);
+            } 
+            else // If no result was found return 404
+            {
+            console.log("not found");
+            res.status(404).json({ error: "Listing not found" });
+            }
+        });
+    }
       
-  });
+});
 
-  //get user profile page
+//get user profile page
 app.get("/user/:user_id", isAuthenticated,function(req,res){
     res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });

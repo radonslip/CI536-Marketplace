@@ -2,22 +2,22 @@
 let num = 5;
 
 // Load the default home page
-defaultListing()
+defaultListing();
 
 // Assign Search Event Listener
-document.querySelector("#submit").addEventListener("click", searchListing)
+document.querySelector("#submit").addEventListener("click", searchListing);
 
 // Clear all currently displayed listings
 function clearHome()
 {
-    console.log("Clear")
-    document.querySelector("#listingsList").replaceChildren()
+    console.log("Clear");
+    document.querySelector("#listingsList").replaceChildren();
 }
 
 // Create a listing from the servers response
 function listingCreate(data)
 {
-    console.log(data)
+    console.log(data);
 
     // Create the listing and add it to the home page
     const listing = document.createElement("div");
@@ -38,14 +38,15 @@ function listingCreate(data)
     listingLink.appendChild(price);
 
     document.querySelector("#listingsList").appendChild(listing);
-    console.log("Created Listing")
+    console.log("Created Listing");
 }
 
 // Search Function for the home page
 function defaultListing()
 {
     // Clear the page of existing data
-    clearHome()
+    clearHome();
+    console.log(document.querySelector("#search").value);
     
     // retreive listing info
     fetch("/home",{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({numOfListings:num})})
@@ -57,7 +58,7 @@ function defaultListing()
         // Create the listings on the home page
         for (let listing = 0; listing < data.length; listing++) 
         {
-            listingCreate(data[listing])
+            listingCreate(data[listing]);
         }
     })
 }
@@ -65,22 +66,21 @@ function defaultListing()
 // Search Function for the home page
 function searchListing()
 {
-    clearHome()
+    clearHome();
 
-    // retreive listing info from search
+    // retreive search query
+    let search = document.querySelector("#search").value;
 
-    // ADAPT BELOW TO WORK FOR SEARCH, THEORETICALLY SHOULD WORK OUT OF THE BOX
+    fetch("/home",{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({numOfListings:num, searchQuery:search})})
+    .then(res=> res.json())
+    .then(data => {
+        console.log(data[0])
+        // listingCreate(data, id)
 
-    // fetch("/home",{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({numOfListings:num})})
-    // .then(res=> res.json())
-    // .then(data => {
-    //     console.log(data[0])
-    //     // listingCreate(data, id)
-
-    //     // Create the listings on the home page
-    //     for (let listing = 0; listing < data.length; listing++) 
-    //     {
-    //         listingCreate(data[listing])
-    //     }
-    // })
+        // Create the listings on the home page
+        for (let listing = 0; listing < data.length; listing++) 
+        {
+            listingCreate(data[listing]);
+        }
+    })
 }
