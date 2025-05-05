@@ -40,8 +40,8 @@ app.use((req, res, next) => {
 //connect to db
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: '1234',
+    user: 'tg571_node',
+    password: 'ciG6wbVuQk.o',
     database: 'sys'
 });
 
@@ -158,13 +158,15 @@ app.get("/create/listing", function(req,res){
 });
 
 //create user when form submitted
-app.post("/createuser/", encoder, async function(req,res){
+app.post("/create/user/", encoder, async function(req,res){
     let username = req.body.username;
     let password = req.body.password;
+    let displayName = req.body.displayName;
+    let location = req.body.location;
 
     const hashedPassword = await bcrypt.hash(password, 10); //hash password using bcrypt with salt rounds of 10
     connection.query(
-        "INSERT INTO users (user_name, user_pass) VALUES (?)", [[username, hashedPassword]], async function(err,results,fields){
+        "INSERT INTO users (user_name, user_pass, user_display_name, user_location) VALUES (?)", [[username, hashedPassword, displayName, location]], async function(err,results,fields){
         if(err) {
             console.log(`Error creating user: ${username}: `, err);
         }
@@ -185,6 +187,41 @@ app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
         }
     });
     // res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+});
+
+// Send data about the user to the profile page
+app.post("/user/:user_id", encoder, isAuthenticated, function(req,res){
+
+    const body = req.body
+  
+  // user id
+    let userID = req.params.user_id;
+  
+  //   Find the user
+      connection.query("SELECT * FROM users WHERE user_id = ?", [userID], (err, results) => {
+          if (err) 
+          {
+              // Error if the database cannot be reached
+              res.status(500).json({ error: "Database error" });
+          } 
+          else if (results.length > 0) 
+          {
+              // If the user was found return the data about it
+              return res.json({
+                  status: 'success',
+                  display_name: results[0].user_display_name,
+                  location: results[0].user_location
+              })
+          } 
+          else 
+          {
+              // If the listing was not found then throw an error
+              console.log("not found");
+              console.log(userID);
+              res.status(404).json({ error: "User not found" });
+          }
+      });
+      
 });
 
 // //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio

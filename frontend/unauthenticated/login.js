@@ -50,7 +50,7 @@ window.addEventListener('load', function () {
     });
 
     this.document.querySelector("#userCreate").addEventListener("click", function () {
-        window.location.href = "createUser";
+        window.location.href = "create/user";
     });
 
     //show error message
