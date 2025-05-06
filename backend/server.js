@@ -6,6 +6,7 @@ const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
 const bcrypt = require('bcrypt'); //for hashing passwords https://medium.com/@vuongtran/using-node-js-bcrypt-module-to-hash-password-5343a2aa2342
 // const multer = require("multer"); // Used for saving images uploaded to the server
+const { IncomingForm } = require('formidable');
 
 const fs = require("fs");
 
@@ -132,7 +133,7 @@ app.get("/home", isAuthenticated, function(req,res){
 
 // Send data about the listing to the home page
 app.post("/home", encoder, isAuthenticated, function(req,res){
-    console.log(req.session.user)
+    // console.log(req.session.user)
 
     // How many listings need to be returned
     let numOfListings = req.body.numOfListings;
@@ -223,7 +224,99 @@ app.post("/create/user/", encoder, async function(req,res){
 //create user when form submitted
 app.post("/create/listing/", encoder, async function(req,res){
     // console.log(req.body)
-    res.send('File uploaded successfully')
+    // res.send('File uploaded successfully')
+
+    const form = new IncomingForm({
+        uploadDir: path.join(__dirname, 'uploads'),
+        keepExtensions: true,
+    });
+
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            console.error("Form parsing error:", err);
+            return res.status(500).json({ error: 'Form parsing failed' });
+        }
+
+        // `fields` has your text inputs
+        // `files.listImg` has your uploaded image
+        let uploadedFile = files.imgProduct[0];
+
+        let listName = fields.nameProduct[0]
+        let listDesc = fields.descProduct[0]
+        let listPrice = fields.priceProduct[0]
+        let listUser = ""
+
+        // console.log(req.session.user)
+
+        connection.query("SELECT user_id FROM users WHERE user_name = ?", [req.session.user], (err, results) => {
+            if (err) 
+            {
+                // Error if the database cannot be reached
+                res.status(500).json({ error: "Database error" });
+            } 
+            else if (results.length > 0) 
+            {
+                // console.log(results[0].user_id)
+                listUser = results[0].user_id
+
+                console.log(listName,listDesc,listPrice,listUser)
+
+                connection.query("INSERT INTO listings (listing_title, listing_description, listing_price, user_id) VALUES (?)", [[listName, listDesc, listPrice, listUser]], async function(err,results,fields){
+                    if(err) {
+                        console.log(`Error creating listing: ${listName}: `, err);
+                    }
+                    else {
+                        console.log("Listing created: ", listName);
+
+                        connection.query("SELECT listing_id FROM listings ORDER BY listing_created DESC LIMIT 1", async function(err,results,fields){
+                            if(err) {
+                                console.log("Error finding listing", err);
+                            }
+                            else {
+                                console.log(results[0])
+                                imgPath = path.join(__dirname , "../listings/", String(results[0].listing_id),"0.png")
+                                console.log(imgPath)
+
+                                fs.mkdirSync(path.join(__dirname , "../listings/", String(results[0].listing_id)))
+                                fs.rename(String(uploadedFile.filepath), imgPath, (err) => {
+                                    if (err) {
+                                        console.error("File move error:", err);
+                                        return res.status(500).json({ error: 'Failed to move image' });
+                                    }
+
+   
+                                });
+                                res.redirect('/home');
+                            }
+                        });
+                    }
+                });
+            } 
+            else 
+            {
+                // If the listing was not found then throw an error
+                console.log("not found");
+                console.log(userID);
+                res.status(404).json({ error: "User not found" });
+            }
+        });
+
+        // // Optional: Move file somewhere else
+        // const newPath = path.join(__dirname, 'products', uploadedFile.originalFilename);
+
+        // fs.rename(String(uploadedFile.filepath), newPath, (err) => {
+        //     if (err) {
+        //         console.error("File move error:", err);
+        //         return res.status(500).json({ error: 'Failed to move image' });
+        //     }
+
+        //     // res.json({
+        //     //     message: 'Upload complete',
+        //     //     product: productName,
+        //     //     imageStoredAt: newPath,
+        //     // });
+        // });
+    });
 
 })
 

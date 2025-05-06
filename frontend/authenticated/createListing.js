@@ -5,3 +5,18 @@ document.querySelector("#imgInp").onchange = evt =>
         document.querySelector("#imgPrev").src = URL.createObjectURL(file)
     }
 }
+
+document.querySelector("#submitForm").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const form = document.querySelector("#listingForm");
+    const formData = new FormData(form);
+
+    fetch("/create/listing", {
+        method: "POST",
+        body: formData,
+    })
+    .then(res => res.json())
+    .then(data => console.log("Success:", data))
+    .catch(err => console.error("Error:", err));
+})
