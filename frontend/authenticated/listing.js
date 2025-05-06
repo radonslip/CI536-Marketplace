@@ -1,6 +1,9 @@
 // Get the listing id from the URL
 let loc = window.location.href;
-let id = loc[loc.length-1]
+var parts = loc.split('/');
+var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+let id = lastSegment;
+
 
 // Request the listing data to create the page
 // Fetch request from JS - https://stackoverflow.com/questions/74844272/is-there-a-way-to-send-data-from-a-js-file-to-the-express-server-without-using-a

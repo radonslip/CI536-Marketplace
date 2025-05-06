@@ -18,5 +18,6 @@ document.querySelector("#submitForm").addEventListener("click", function(event) 
     })
     .then(res => res.json())
     .then(data => console.log("Success:", data))
+    .then(window.location.href = "/home")
     .catch(err => console.error("Error:", err));
 })

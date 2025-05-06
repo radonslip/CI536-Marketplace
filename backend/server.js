@@ -237,8 +237,6 @@ app.post("/create/listing/", encoder, async function(req,res){
             return res.status(500).json({ error: 'Form parsing failed' });
         }
 
-        // `fields` has your text inputs
-        // `files.listImg` has your uploaded image
         let uploadedFile = files.imgProduct[0];
 
         let listName = fields.nameProduct[0]
@@ -286,6 +284,7 @@ app.post("/create/listing/", encoder, async function(req,res){
 
    
                                 });
+                                
                                 res.redirect('/home');
                             }
                         });
@@ -301,21 +300,7 @@ app.post("/create/listing/", encoder, async function(req,res){
             }
         });
 
-        // // Optional: Move file somewhere else
-        // const newPath = path.join(__dirname, 'products', uploadedFile.originalFilename);
 
-        // fs.rename(String(uploadedFile.filepath), newPath, (err) => {
-        //     if (err) {
-        //         console.error("File move error:", err);
-        //         return res.status(500).json({ error: 'Failed to move image' });
-        //     }
-
-        //     // res.json({
-        //     //     message: 'Upload complete',
-        //     //     product: productName,
-        //     //     imageStoredAt: newPath,
-        //     // });
-        // });
     });
 
 })
@@ -445,4 +430,4 @@ app.get("/listing/:listing_id/:img_id", isAuthenticated, function(req,res){
 });
 
 app.listen(port);
-console.log("Listening on " + port);
+console.log("Listening on " + port)
