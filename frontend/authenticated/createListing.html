@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link href="/authenticated/listing.css" rel="stylesheet" type="text/css">
-    <!-- <script src="/authenticated/listing.js"></script> -->
+    <script src="/authenticated/createListing.js" defer></script>
     <title>Listing</title>
     <h1 class="Header"><strong><u>Upload Your Product</strong></u></h1>
 </head>
@@ -20,7 +20,9 @@
    <p></p> <!--For Spacing-->
 
 <div class="container">
-    <img id = "img" src = "Images/productImage.jpg" alt ="user profile name">
+    <form action="/create/listing" method="POST" enctype = "multipart/form-data">
+    <input type="file" id="imgInp" name="listImg" accept="image/*">
+    <img id="imgPrev" src="#" alt="Your image" />
     <p></p>
     <p></p>
     <p></p>
@@ -32,16 +34,17 @@
             <p></p> <!--For Spacing-->
             <label class="productDescriptionLabel" for="productDescription">Product Description</label>
             <p></p> <!--For Spacing-->
-            <input type="text" class="textOne" id="productDescription" name="Name Of product">
+            <input type="text" class="textOne" id="productDescription" name="Desc Of product">
             <p></p> <!--For Spacing-->
             <p></p><!--For Spacing-->
             <p></p> <!--For Spacing-->
             <label class="productPriceLabel" for="productPrice">Price</label>
-            <input type="text" id="productName" name="Name Of product">
+            <input type="number" id="productPrice" name="Price Of product">
             <p></p> <!--For Spacing-->
             <p></p><!--For Spacing-->
             <p></p> <!--For Spacing-->
-            <button class="buttonOne" type="button">Upload Product</button>
+            <button class="buttonOne" id = "submitForm" type="submit">Upload Product</button>
+    </form>
 </div>
 </body>
 </html>
