@@ -25,5 +25,37 @@ fetch("/user/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'applic
         location.id = "h2";
         location.textContent = "Location: " + data.location;
         container.appendChild(location);
+
+        console.log("Created Profile");
+
+        for (let listing = 0; listing < data.listings.length; listing++) 
+        {
+            listingCreate(data.listings[listing]);
+        }
+
     }
-})
+});
+
+function listingCreate(data)
+{
+    // Create the listing and add it to the profile page
+    const listing = document.createElement("div");
+    listingLink = document.createElement("a");
+    listingLink.href = "../listing/" + data.listing_id;
+    listing.appendChild(listingLink);
+
+    title = document.createElement("h3");
+    title.textContent = data.listing_title;
+    listingLink.appendChild(title);
+
+    image = document.createElement("img");
+    image.src = "/listing/" + data.listing_id + "/" + 0;
+    listingLink.appendChild(image);
+
+    price = document.createElement("p");
+    price.textContent = data.listing_price;
+    listingLink.appendChild(price);
+
+    document.querySelector(".containerTwo").appendChild(listing);
+    console.log("Created Listing");
+}

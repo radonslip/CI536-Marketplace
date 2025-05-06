@@ -132,36 +132,36 @@ app.post("/home", encoder, isAuthenticated, function(req,res){
         connection.query("SELECT * FROM listings WHERE listing_title LIKE ?", [searchSQL], (err, results) => {
             if (err) // Error if the database cannot be reached
             {
-            res.status(500).json({ error: "Database error" });
+                res.status(500).json({ error: "Database error" });
             } 
             else if (results.length > 0) // If a result was found then return it to the client
             {
-            responseData = results.slice(0,numOfListings);
-            // console.log(responseData)
-            return res.json(responseData);
+                responseData = results.slice(0,numOfListings);
+                // console.log(responseData)
+                return res.json(responseData);
             } 
             else // If no result was found return 404
             {
-            console.log("not found");
-            res.status(404).json({ error: "Listing not found" });
+                console.log("not found");
+                res.status(404).json({ error: "Listing not found" });
             }
         });
     } else {
         connection.query("SELECT * FROM listings", (err, results) => {
             if (err) // Error if the database cannot be reached
             {
-            res.status(500).json({ error: "Database error" });
+                res.status(500).json({ error: "Database error" });
             } 
             else if (results.length > 0) // If a result was found then return it to the client
             {
-            responseData = results.slice(0,numOfListings);
-            // console.log(responseData)
-            return res.json(responseData);
+                responseData = results.slice(0,numOfListings);
+                // console.log(responseData)
+                return res.json(responseData);
             } 
             else // If no result was found return 404
             {
-            console.log("not found");
-            res.status(404).json({ error: "Listing not found" });
+                console.log("not found");
+                res.status(404).json({ error: "Listing not found" });
             }
         });
     }
@@ -200,7 +200,7 @@ app.post("/create/user/", encoder, async function(req,res){
             console.log("User created: ", username);
             res.redirect('/?error=User created, please login');
         }
-        });
+    });
 });
 
 app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
@@ -217,37 +217,44 @@ app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
 
 // Send data about the user to the profile page
 app.post("/user/:user_id", encoder, isAuthenticated, function(req,res){
-
-    const body = req.body
   
-  // user id
+    //user id
     let userID = req.params.user_id;
+    let numOfListings = 10;
   
-  //   Find the user
-      connection.query("SELECT * FROM users WHERE user_id = ?", [userID], (err, results) => {
-          if (err) 
-          {
-              // Error if the database cannot be reached
-              res.status(500).json({ error: "Database error" });
-          } 
-          else if (results.length > 0) 
-          {
-              // If the user was found return the data about it
-              return res.json({
-                  status: 'success',
-                  display_name: results[0].user_display_name,
-                  location: results[0].user_location
-              })
-          } 
-          else 
-          {
-              // If the listing was not found then throw an error
-              console.log("not found");
-              console.log(userID);
-              res.status(404).json({ error: "User not found" });
-          }
-      });
-      
+    //Find the user
+    connection.query("SELECT * FROM users WHERE user_id = ?", [userID], (err, results) => {
+        if (err) 
+        {
+            // Error if the database cannot be reached
+            res.status(500).json({ error: "Database error" });
+        } 
+        else if (results.length > 0) 
+        {
+            connection.query("SELECT * FROM listings WHERE user_id = ?", [userID], (err, listResults) => {
+                if (err) // Error if the database cannot be reached
+                {
+                    res.status(500).json({ error: "Database error" });
+                } 
+                let listingData = listResults.slice(0,numOfListings);
+                // If the user was found return the data about it
+                return res.json({
+                    status: 'success',
+                    display_name: results[0].user_display_name,
+                    location: results[0].user_location,
+                    listings: listingData
+                });
+            });
+        } 
+        else 
+        {
+            // If the user was not found then throw an error
+            console.log("not found");
+            console.log(userID);
+            res.status(404).json({ error: "User not found" });
+        }
+    });
+
 });
 
 // //why express not sockets: https://stackoverflow.com/questions/20080941/serving-images-over-websockets-with-nodejs-socketio
