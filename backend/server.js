@@ -5,6 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
 const bcrypt = require('bcrypt'); //for hashing passwords https://medium.com/@vuongtran/using-node-js-bcrypt-module-to-hash-password-5343a2aa2342
+// const multer = require("multer"); // Used for saving images uploaded to the server
 
 const fs = require("fs");
 
@@ -15,6 +16,21 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) =>
+//     {
+//         console.log(req)
+//         cb(null, "Images")
+//     },
+//     filename: (req, file, cb) =>
+//     {
+//         console.log(file)
+//         cb(null, Date.now() + path.extname(file.originalname))
+//     }
+// })
+
+// const upload = multer({storage: storage})
 
 app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
 app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
@@ -40,8 +56,8 @@ app.use((req, res, next) => {
 //connect to db
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'tg571_node',
-    password: 'ciG6wbVuQk.o',
+    user: 'root',
+    password: '1234',
     database: 'sys'
 });
 
@@ -116,6 +132,7 @@ app.get("/home", isAuthenticated, function(req,res){
 
 // Send data about the listing to the home page
 app.post("/home", encoder, isAuthenticated, function(req,res){
+    console.log(req.session.user)
 
     // How many listings need to be returned
     let numOfListings = req.body.numOfListings;
@@ -166,7 +183,7 @@ app.post("/home", encoder, isAuthenticated, function(req,res){
         });
     }
       
-});
+})
 
 //get user profile page
 app.get("/user/:user_id", isAuthenticated,function(req,res){
@@ -179,7 +196,7 @@ app.get("/create/user", function(req,res){
 });
 
 //get listing creation page
-app.get("/create/listing", function(req,res){
+app.get("/create/listing", isAuthenticated, function(req,res){
     res.sendFile('createListing.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
@@ -202,6 +219,13 @@ app.post("/create/user/", encoder, async function(req,res){
         }
         });
 });
+
+//create user when form submitted
+app.post("/create/listing/", encoder, async function(req,res){
+    // console.log(req.body)
+    res.send('File uploaded successfully')
+
+})
 
 app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
     const imagePath = path.join(__dirname, `../frontend/authenticated/Images/profilepicture.jpg`);
