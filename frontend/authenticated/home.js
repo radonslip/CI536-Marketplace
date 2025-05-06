@@ -1,5 +1,5 @@
 // How many listings should be displayed on the home page
-let num = 20;
+let num = 15;
 
 // Load the default home page
 defaultListing();
