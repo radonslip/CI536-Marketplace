@@ -1,3 +1,6 @@
+html{
+    background-color: rgb(95 237 120);
+}
 body{
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
@@ -5,6 +8,7 @@ body{
 #login{
     display:block;
 }
+
 input,
 textarea {
     display: block;
@@ -14,9 +18,20 @@ textarea {
 textarea {
     height: 10em;
 }
+
+button{
+    width: 50vh;
+}
+button:hover{
+    background-color: blueviolet;
+    color: rgb(253, 253, 247);
+}
 fieldset{
     margin: 4em;
     padding: 1em;
+    background-color: rgb(253, 253, 247);
+    border-style: double;
+    border-color: rgb(84, 190, 2);
 }
 
 #hidUsername{
@@ -35,10 +50,23 @@ img{
     align-content: center;
 }
 
-#error-message{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    color: red;
-    margin: 0.5em 0 1em 0;
+@media (max-width: 500px){
+
+body{
+    align-items: center;
 }
+
+img{
+    display: none;
+}
+h1{
+    text-decoration: underline;
+}
+fieldset{
+    margin: 34px;
+    border-style: none;
+    border: 0px;
+}
+    
+}
+
