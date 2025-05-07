@@ -1,3 +1,7 @@
+
+html{
+    background-color: rgb(95 237 120) ;
+}
 .container{
     height: 100vh;
     display: grid;
@@ -15,18 +19,33 @@ input,label{
 input{
     margin-bottom: 1em;
     width: 60%;
+    background-color: rgb(253, 253, 247);;
 }
 
 form{
     display: grid;
     width: 70%;
+    background-color:rgb(253, 253, 247);
 }
 fieldset{
     display: grid;
     place-items: center;
+    border: 3px;
+    border-style: solid;
+    border-color: rgb(84, 190, 2);
+    margin: 0%;
+
 }
 
 #submitBtn{
     width: 40%;
     min-width: 20%;
+    background-color: lightgrey;
+}
+
+#submitBtn:hover{
+    background-color: blueviolet;
+}
+#hidAnswer, #pwdLength, #capital, #number, #specChar{
+    display: none;
 }
