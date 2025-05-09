@@ -171,3 +171,13 @@ bottom: 100px;
         
         
 }
+
+ul {
+    margin: 0 auto;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    vertical-align: top;
+}

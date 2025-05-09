@@ -27,7 +27,7 @@ function listingCreate(data)
     console.log(data);
 
     // Create the listing and add it to the home page
-    const listing = document.createElement("div");
+    const listing = document.createElement("li");
     listingLink = document.createElement("a");
     listingLink.href = "listing/" + data.listing_id;
     listing.appendChild(listingLink);
