@@ -2,8 +2,8 @@
 
 body {
   margin: 0; /* Removes default body margin */
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;/* Optional for font consistency */
-   background-color: rgb(39 208 75);
+  font-family: Arial, sans-serif; /* Optional for font consistency */
+   background-color: rgb(253, 253, 247);
 }
 
 
@@ -102,9 +102,8 @@ top: -50px
 
   .cont {
       
-          background-color: #fbfbca;
+          background-color: rgb(253, 253, 247);
           width: 1100px;
-          border: 10px solid rgb(0, 0, 0);
           height: 900px;
           padding: 50px;
           margin: auto;
@@ -116,7 +115,7 @@ top: -50px
   }
 
   .containerTwo {
-    border: #000;
+    
 
     width: 950px;
 
