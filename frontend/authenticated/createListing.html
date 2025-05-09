@@ -1,0 +1,50 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="/authenticated/listing.css" rel="stylesheet" type="text/css">
+    <script src="/authenticated/createListing.js" defer></script>
+    <title>Listing</title>
+    <h1 class="Header"><strong><u>Upload Your Product</strong></u></h1>
+</head>
+
+<body>
+    <nav class="navigation">
+        <ul>
+            <li><a href="home.html">Home Page</a></li>
+            <li><a href="userCreate.html">Create Account</a></li>
+        </ul>
+    </nav>
+
+   <p></p> <!--For Spacing-->
+   <p></p><!--For Spacing-->
+   <p></p> <!--For Spacing-->
+
+<div class="container">
+    <form id = "listingForm" action="/create/listing" method="POST" enctype = "multipart/form-data">
+    <input type="file" id="imgInp" name="imgProduct" accept="image/*">
+    <img id="imgPrev" src="#" alt="Your image" />
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+            <label class="productLabel" for="productName">Product Name</label>
+            <input type="text" id="productName" name="nameProduct">
+            <p></p> <!--For Spacing-->
+            <p></p><!--For Spacing-->
+            <p></p> <!--For Spacing-->
+            <label class="productDescriptionLabel" for="productDescription">Product Description</label>
+            <p></p> <!--For Spacing-->
+            <input type="text" class="textOne" id="productDescription" name="descProduct">
+            <p></p> <!--For Spacing-->
+            <p></p><!--For Spacing-->
+            <p></p> <!--For Spacing-->
+            <label class="productPriceLabel" for="productPrice">Price</label>
+            <input type="number" id="productPrice" name="priceProduct">
+            <p></p> <!--For Spacing-->
+            <p></p><!--For Spacing-->
+            <p></p> <!--For Spacing-->
+            <button class="buttonOne" id = "submitForm" type="submit">Upload Product</button>
+    </form>
+</div>
+</body>
+</html>

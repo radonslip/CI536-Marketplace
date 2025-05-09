@@ -20,13 +20,18 @@ body {
     padding: 1rem;
     border-bottom-style: solid;
     border-color: rgb(84, 190, 2);
+    border-bottom-style: solid;
+    border-color: rgb(84, 190, 2);
 }
 
 #sidebar {
     background-color: rgb(154, 255, 170);
+    background-color: rgb(154, 255, 170);
     grid-area: sidebar;
     color: white;
     padding: 1rem;
+    border-right-style: solid;
+    border-color: rgb(84, 190, 2);
     border-right-style: solid;
     border-color: rgb(84, 190, 2);
 }
@@ -63,6 +68,7 @@ button{
   
 
 main {
+    background-color: rgb(253, 253, 247);
     background-color: rgb(253, 253, 247);
     grid-area: main;
     padding: 1rem;
@@ -120,7 +126,7 @@ img{
     height: 400px;
     overflow: auto;
     overflow-y: hidden;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     white-space: nowrap;
 }
 
