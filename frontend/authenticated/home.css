@@ -1,4 +1,46 @@
-.container {
+
+
+body {
+    margin: 0; /* Removes default body margin */
+    font-family: Arial, sans-serif; /* Optional for font consistency */
+     background-color: rgb(253, 253, 247);
+  }
+  
+  
+  main {
+    background-color: rgb(39 208 75);
+    grid-area: main;
+    padding: 1rem;
+    overflow: scroll;
+  }
+  
+  #banner {
+    background-color: rgb(95 237 120);
+    grid-area: banner;
+    color: black;
+    padding: 1rem;
+    border-bottom-style: solid;
+    border-color: rgb(84, 190, 2);
+    text-align: center;
+    
+  }
+  
+  
+  h1 {
+  text-align: center;
+  }
+  
+  #img2  {
+    mix-blend-mode: multiply;
+    width: 350px; 
+  position: relative;
+  right: 770px;
+  top: -50px
+  }
+  
+  
+  
+  .container {
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -6,46 +48,36 @@
     grid-template-areas:
         "banner banner"
         "sidebar main";
-}
-
-body {
-    margin: 0; /* Removes default body margin */
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;/* Optional for font consistency */
-}
-
-#banner {
-    background-color: rgb(95 237 120);
-    grid-area: banner;
-    color: black;
-    padding: 1rem;
-    border-bottom-style: solid;
-    border-color: rgb(84, 190, 2);
-    border-bottom-style: solid;
-    border-color: rgb(84, 190, 2);
-}
-
-#sidebar {
-    background-color: rgb(154, 255, 170);
+  }
+  
+  #sidebar {
     background-color: rgb(154, 255, 170);
     grid-area: sidebar;
     color: white;
     padding: 1rem;
     border-right-style: solid;
     border-color: rgb(84, 190, 2);
-    border-right-style: solid;
-    border-color: rgb(84, 190, 2);
-}
-
-button{
+  }
+  
+  #listings, #users, #userLogin, #createAccount {
     display: block;
     width: 100%;
     padding: 1em;
     margin-top: 1em;
     margin-bottom: 1em;
     background-color: rgb(253, 253, 247);
-}
-
-#listings:hover{
+  }
+  
+  #sidebar {
+    background-color: rgb(154, 255, 170);
+    grid-area: sidebar;
+    color: white;
+    padding: 1rem;
+    border-right-style: solid;
+    border-color: rgb(84, 190, 2);
+  }
+  
+  #listings:hover{
     background-color: blueviolet;
     color: rgb(253, 253, 247);
   }
@@ -66,88 +98,189 @@ button{
     color: rgb(253, 253, 247);
   }
   
-
-main {
-    background-color: rgb(253, 253, 247);
-    background-color: rgb(253, 253, 247);
-    grid-area: main;
-    padding: 1rem;
-    overflow: scroll;
-}
-
-#head{
-    text-align: center
-}
-
-#market {
-    text-align: center
-}
-
-@media (max-width: 500px){
-
-    .container {
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 5fr;
-        grid-template-areas:
-            "sidebar"
-            "main";
+  
+  
+    .cont {
+        
+            background-color: rgb(253, 253, 247);
+            width: 1100px;
+            height: 900px;
+            padding: 50px;
+            margin: auto;
+            position: relative;
+            box-sizing: content-box;
+            overflow: auto;
+          
+  
     }
-
+  
+    .containerTwo {
+      
+  
+      width: 950px;
+  
+      height: 550px;
+  
+      padding: 50px;
+  
+      margin: auto;
+  
+      position: relative;
+  
+      border-style: solid;
+  
+      box-sizing: content-box;
+  
+      overflow: auto;
+    }
+  
+    img {
+  
+        mix-blend-mode: multiply;
+  
+    }
+  
+  #h1 {
+  
+    position: absolute;
+    top: 90px;
+    left: 210px;
+    font-size: 35px;
+    color: black;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+    
+  }
+  
+  #h2 {
+  
+    margin-bottom: 90px;
+    
+  }
+  
+  #h3 {
+  
+    margin-bottom: 90px;
+  
+  }
+  
+  #h4 {
+  
+    margin-bottom: 90px;
+  
+  }
+  
+  #h5 {
+  
+    margin-bottom: 90px;
+  
+  }
+  
+  #h6 {
+  
+    margin-bottom: 59px;
+  
+  }
+  
+  
+  #h2, #h3, #h4, #h5, #h6 {
+    border-width: 3px;
+    border-color: black;
+    border-style: solid;
+    background-color: #f1f18e;
+    font-size: 22px;
+    
+  
+  }
+  
+  .navigation {
+  
+  border: 5;
+  background-color: #fbfbca;;
+  border-style:solid;
+  border-color: black;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   text-align:center; 
+  }
+  
+  .navigation li {
+  list-style-type: none;
+  font-size: 18px;
+  margin-left: 0px;
+  margin-bottom: 25px;
+  display: block;
+  margin: 0;
+  margin: 0 1em 0 0;
+  }
+  
+  a:link {
+  color:#052a57
+  }
+  
+  
+  
+  a:hover{
+  color:gray;
+  text-decoration: none;
+  }
+  
+  .navigation a {
+  color: #000;
+  padding: 5px;
+  text-decoration: none;
+  border: 2px solid #4d4d47;
+  border-radius: 3px;
+    display: block;
+    padding: .7em 1.25em .7em 1.25em;
+    color: #454242;
+    text-decoration: none;
+  padding: 0;
+  }
+  
+  .navigation a:hover {
+  background-color: #5ee877;
+  color: #000000;
+  }
+  
+  a:active {
+  color: #9c9c9c;
+  }
+  
+  
+  
+  @media (max-width: 900px) {
+    .container{
+      width: auto;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 5fr;
+      grid-template-areas:
+          "sidebar"
+          "main";
+    }
+  
     #banner{
-        display: none;
-    }
-
-    #market{
-        display: block;
-    }
-
-    button{
-        width: auto;
-        display: inline;
-    }
-
-    #sidebar{
-        border-bottom-style: solid;
-        border-color: rgb(84, 190, 2);
-    }
-
-}
-
-img{
-    max-width: 400px;
-    min-width: 400px;
-    display: inline;
-}
-
-#images{
-    width: 1000px;
-    height: 400px;
-    overflow: auto;
-    overflow-y: hidden;
-    /* margin: 0 auto; */
-    white-space: nowrap;
-}
-
-a {
+      display: none;
+  }
+  
+  .navigation {
+    width: auto;
+  display: inline;
+  }
+  
+  
+  .body {
+    display: none;
+  }
+  
+  #sidebar{
+    border-bottom-style: solid;
+    border-color: rgb(84, 190, 2);
+  }
+  
+  
+  }
+  
+  a {
     text-decoration: none;
   }
-
-
-  #img2  {
-    mix-blend-mode: multiply;
-    width: 350px; 
-  position: relative;
-bottom: 100px;
-  top: -50px
-  }
-
-  #img {
-            
-    mix-blend-mode: multiply;
-    height: 300px;
-        position: relative;
-        
-        
-}
