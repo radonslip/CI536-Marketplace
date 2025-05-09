@@ -111,4 +111,8 @@ window.addEventListener('load', function () {
 
     });
 
+    this.document.querySelector("#login").addEventListener("click", function () {
+        window.location.href = "/";
+    });
+
 })

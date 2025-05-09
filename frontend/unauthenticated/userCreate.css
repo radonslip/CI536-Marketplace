@@ -47,6 +47,13 @@ fieldset{
 #submitBtn:hover{
     background-color: blueviolet;
 }
+button{
+    width: 50vh;
+}
+button:hover{
+    background-color: blueviolet;
+    color: rgb(253, 253, 247);
+}
 #hidAnswer, #pwdLength, #capital, #number, #specChar{
     display: none;
 }
