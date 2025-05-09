@@ -122,8 +122,11 @@ main {
 
     #sidebar{
         border-bottom-style: solid;
+        border-right-style:none;
         
         border-color: rgb(84, 190, 2);
+
+        
     }
 
     Button{
