@@ -178,6 +178,10 @@ body {
                   right: 570px;
                   top: -50px
               }
+        #imgPrev{
+            max-width: 50%;
+            min-width: 50%;
+        }
 
         #lisTitle{
             font-size: 25px;

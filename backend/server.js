@@ -221,6 +221,7 @@ app.post("/create/listing/", encoder, async function(req,res){
             return res.status(500).json({ error: 'Form parsing failed' });
         }
 
+
         let uploadedFile = files.imgProduct[0];
 
         let listName = fields.nameProduct[0]
@@ -265,11 +266,9 @@ app.post("/create/listing/", encoder, async function(req,res){
                                         console.error("File move error:", err);
                                         return res.status(500).json({ error: 'Failed to move image' });
                                     }
-
    
                                 });
                                 
-                                res.redirect('/home');
                             }
                         });
                     }
@@ -283,8 +282,6 @@ app.post("/create/listing/", encoder, async function(req,res){
                 res.status(404).json({ error: "User not found" });
             }
         });
-
-
     });
 
 })

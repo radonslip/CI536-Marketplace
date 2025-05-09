@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link href="/authenticated/listing.css" rel="stylesheet" type="text/css">
-    <script src="/authenticated/listing.js"></script>
+    <script src="/authenticated/createListing.js" defer></script>
     <title>Listing</title>
 </head>
 
@@ -21,48 +21,41 @@
 
     <aside id="sidebar">
         <h1 class="Header"><strong>Navigation</strong></h1>
-        <a href="homeExample.html">
+        <a href="/home">
             <button id="listings">Home Page</button>
         </a>
         
-        <a href="userprofile.html"> 
+        <a href="/user/1"> 
         <button id="users">Your Profile</button>
         </a>
-        
-        <a href="login.html">
-        <button id = "userLogin">Login</button>
-        </a>
-        
-        
-        <a href="userCreate.html">
-        <button id = "createAccount">Create Account</button>
-        </a>           
-        
+
     </aside>
 
     <div class="cont">
-        <img id = "img" src = "Images/productImage.jpg" alt ="user profile name">
+        <form id = "listingForm" action="/create/listing" method="POST" enctype = "multipart/form-data">
+        <input type="file" id="imgInp" name="imgProduct" accept="image/*">
+        <img id = "imgPrev" src = "/authenticated/Images/productImage.jpg" alt ="user profile name">
         <p></p>
         <p></p>
         <p></p>
         <p></p>
                 <label class="productLabel" for="productName">Product Name</label>
-                <input type="text" id="productName" name="Name Of product">
+                <input type="text" id="productName" name="nameProduct">
                 <p></p> <!--For Spacing-->
                 <p></p><!--For Spacing-->
                 <p></p> <!--For Spacing-->
                 <label class="productDescriptionLabel" for="productDescription">Product Description</label>
                 <p></p> <!--For Spacing-->
-                <input type="text" class="textOne" id="productDescription" name="Name Of product">
+                <input type="text" class="textOne" id="productDescription" name="descProduct">
                 <p></p> <!--For Spacing-->
                 <p></p><!--For Spacing-->
                 <p></p> <!--For Spacing-->
                 <label class="productPriceLabel" for="productPrice">Price</label>
-                <input type="text" id="productName" name="Name Of product">
+                <input type="text" id="productName" name="priceProduct">
                 <p></p> <!--For Spacing-->
                 <p></p><!--For Spacing-->
                 <p></p> <!--For Spacing-->
-                <button id="buttonOne" type="button">Upload Product</button>
+                <button id="submitForm" type="submit">Upload Product</button>
     </div>
     
     </div>

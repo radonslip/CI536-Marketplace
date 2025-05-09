@@ -16,8 +16,7 @@ document.querySelector("#submitForm").addEventListener("click", function(event) 
         method: "POST",
         body: formData,
     })
-    .then(res => res.json())
+    .then(res => console.log(res))
     .then(data => console.log("Success:", data))
-    .then(window.location.href = "/home")
     .catch(err => console.error("Error:", err));
 })
