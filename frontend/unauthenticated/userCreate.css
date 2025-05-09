@@ -50,3 +50,7 @@ fieldset{
 #hidAnswer, #pwdLength, #capital, #number, #specChar{
     display: none;
 }
+
+#img2 {
+    mix-blend-mode: multiply;
+}
