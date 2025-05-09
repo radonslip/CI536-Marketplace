@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="/unauthenticated/userCreate.css" rel="stylesheet" type="text/css" />
+    <script src="/unauthenticated/userCreate.js"></script>
+    <title>Create User Profile</title>
+</head>
+
+<div class="container">
+
+<body>
+
+                <img id = "img2" src = "/authenticated/Images/logo.jpg" alt ="user profile name">
+
+    <form action="/create/user" method="POST">
+        <fieldset>
+            
+            <h2>Create user</h2>
+
+            <label for="username">Username:</label>
+            <input id="username" name="username" type="text" required autocomplete="off">
+
+            <label for="displayName">Display Name:</label>
+            <input id="displayName" name="displayName" type="text">
+
+            <label for="location">Location:</label>
+            <input id="location" name="location" type="text">
+
+            <label for="userPwd">Create a password:</label>
+            <input id="userPwd" name="password" type="password" required>
+
+            <label for="confirmPwd">Re-enter your Password</label>
+            <input id="confirmPwd" type="password" required>
+            <input id="submitBtn" type="submit" value="Submit">
+
+            <button id="login">Go to Login page</button>
+
+        </fieldset>
+    </form>
+
+    <div>
+        <p id="hidAnswer">Password does not match</p>
+        <p id="pwdLength">Must be at least 8 characters long</p>
+        <p id="capital">Please include a capital letter</p>
+        <p id="number">Please include a number</p>
+        <p id="specChar">Please include a special char</p>
+    </div>
+    </body>
+
+</div>
+</html>

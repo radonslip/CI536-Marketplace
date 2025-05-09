@@ -12,7 +12,7 @@
 <body>
     <h1>Log in page</h1>
 
-    <img src="images/genlogo.png" alt="black square with a lightblue squiqqle">
+    <img id= "img2" src="authenticated/Images/logo.jpg" alt="black square with a lightblue squiqqle">
 
     <div id="login">
         <form action="/" method="POST">
@@ -20,19 +20,19 @@
                 <legend>Welcome to the marketplace</legend>
 
                 <label for="username">Username:</label>
-                <span id="hidUsername" class="hint"> Please enter your username</span>
-                <input id="username" name="username" type="text" />
+                <span id="hidUsername" class="hint"> Please enter your email</span>
+                <input id="username" name="username" type="email" />
 
-                <label for="pwd">Password:</label>
+                <label for="password">Password:</label>
                 <span id="hidPwd" class="hint">Please enter your password</span>
                 <span id="shortPwd" class="hint">Password must be longer that 8 characters</span>
-                <input id="pwd" name="password" type="password" />
+                <input id="password" name="password" type="password" />
 
                 <input type="submit" value="Submit">
 
                 <p id="error-message"></p>
 
-                <button id="userProf">Create a profile</button>
+                <button id="userCreate">Create a profile</button>
             </fieldset>
         </form>
     </div>
