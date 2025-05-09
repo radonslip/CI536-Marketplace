@@ -62,3 +62,15 @@ function listingCreate(data)
   // add the listing itself to the main object
   document.querySelector("main").appendChild(listing);
 }
+
+//link to user profile
+fetch("/session/user")
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.user_id) {
+            document.querySelector("#userProfile").href = `/user/${data.user_id}`;
+        } else {
+            console.error("Failed to fetch user ID");
+        }
+    })
+    .catch((err) => console.error("Error fetching user session:", err));

@@ -16,7 +16,24 @@ document.querySelector("#submitForm").addEventListener("click", function(event) 
         method: "POST",
         body: formData,
     })
-    .then(res => console.log(res))
-    .then(data => console.log("Success:", data))
+    .then(res => res.json())
+    .then(data => {
+        if (data.status == 'success') {
+            console.log("listing created");
+            window.location.href = "/home";
+        }
+    })
     .catch(err => console.error("Error:", err));
-})
+});
+
+//link to user profile
+fetch("/session/user")
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.user_id) {
+            document.querySelector("#userProfile").href = `/user/${data.user_id}`;
+        } else {
+            console.error("Failed to fetch user ID");
+        }
+    })
+    .catch((err) => console.error("Error fetching user session:", err));

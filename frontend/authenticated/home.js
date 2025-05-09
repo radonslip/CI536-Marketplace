@@ -7,6 +7,12 @@ defaultListing();
 
 // Assign Search Event Listener
 document.querySelector("#submit").addEventListener("click", searchListing);
+document.querySelector("#search").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.querySelector("#submit").click(); //trigger submit button click when enter is pressed
+    }
+});
 
 // Clear all currently displayed listings
 function clearHome()
@@ -85,3 +91,15 @@ function searchListing()
         }
     })
 }
+
+//link to user profile
+fetch("/session/user")
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.user_id) {
+            document.querySelector("#userProfile").href = `/user/${data.user_id}`;
+        } else {
+            console.error("Failed to fetch user ID");
+        }
+    })
+    .catch((err) => console.error("Error fetching user session:", err));

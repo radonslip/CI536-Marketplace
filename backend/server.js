@@ -112,7 +112,7 @@ app.post("/", encoder, async function(req,res){
 
 //get home page if logged in
 app.get("/home", isAuthenticated, function(req,res){
-    res.sendFile('homeExample.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+    res.sendFile('home.html', {root: path.join(__dirname, '../frontend/authenticated/')});
 });
 
 // Send data about the listing to the home page
@@ -175,6 +175,20 @@ app.get("/user/:user_id", isAuthenticated,function(req,res){
     res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
+//get user session id for navigation
+app.get("/session/user", isAuthenticated, function (req, res) {
+    connection.query("SELECT user_id FROM users WHERE user_name = ?", [req.session.user], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        if (results.length > 0) {
+            return res.json({ user_id: results[0].user_id });
+        } else {
+            return res.status(400).json({ error: "User not found" });
+        }
+    });
+});
+
 //get user creation page
 app.get("/create/user", function(req,res){
     res.sendFile('userCreate.html', {root: path.join(__dirname, '../frontend/unauthenticated/')});
@@ -207,8 +221,6 @@ app.post("/create/user/", encoder, async function(req,res){
 
 //create user when form submitted
 app.post("/create/listing/", encoder, async function(req,res){
-    // console.log(req.body)
-    // res.send('File uploaded successfully')
 
     const form = new IncomingForm({
         uploadDir: path.join(__dirname, 'uploads'),
@@ -229,8 +241,6 @@ app.post("/create/listing/", encoder, async function(req,res){
         let listPrice = fields.priceProduct[0]
         let listUser = ""
 
-        // console.log(req.session.user)
-
         connection.query("SELECT user_id FROM users WHERE user_name = ?", [req.session.user], (err, results) => {
             if (err) 
             {
@@ -239,7 +249,6 @@ app.post("/create/listing/", encoder, async function(req,res){
             } 
             else if (results.length > 0) 
             {
-                // console.log(results[0].user_id)
                 listUser = results[0].user_id
 
                 console.log(listName,listDesc,listPrice,listUser)
@@ -266,6 +275,8 @@ app.post("/create/listing/", encoder, async function(req,res){
                                         console.error("File move error:", err);
                                         return res.status(500).json({ error: 'Failed to move image' });
                                     }
+
+                                    return res.json({ status: 'success'});
    
                                 });
                                 

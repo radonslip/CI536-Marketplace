@@ -1,16 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link href="/authenticated/stylesheet.css" rel="stylesheet" type="text/css">
-    <script src="/authenticated/home.js"></script>
-    <title>Login Page Test</title>
+    <link href="/authenticated/home.css" rel="stylesheet" type="text/css">
+    <script src="/authenticated/home.js" defer></script>
+    <title>Market place home screen</title>
 </head>
+<div class="container">
 
-<body>
-    <h1>Home</h1>
-</body>
+<nav id="banner">
+    <h1 id="head">Marketplace</h1>
+    <img id = "img2" src = "/authenticated/Images/logo.jpg" alt ="user profile name">
+</nav>
 
+<aside id="sidebar">
+    <h3 id="market">Navigation</h3>
+
+    <a href="/create/listing">
+    <button>Upload Your product</button>
+    </a>
+
+    <a id="userProfile" href=""> 
+    <button id="users">Your Profile</button>
+    </a>
+          
+</aside>
+
+
+<main>
+    <h2>Home page</h2>
+    <label for="searches">Search</label>
+    <input type="text" id="search">
+    <input type="submit" id="submit">
+    <p></p>
+
+    <div id="listingsList">
+
+    </div>
+    
+ 
+</main>
+
+</div>
 </html>

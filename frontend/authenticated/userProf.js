@@ -8,7 +8,7 @@ fetch("/user/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'applic
     // Check if the data was succesfully received
     if (data.status == 'success') 
     {
-        const container = document.querySelector(".container");
+        const container = document.querySelector(".containerOne");
 
         let profileImage = document.createElement("img");
         //profileImage.src = data.profileImage;
