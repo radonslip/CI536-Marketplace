@@ -122,7 +122,12 @@ main {
 
     #sidebar{
         border-bottom-style: solid;
+        
         border-color: rgb(84, 190, 2);
+    }
+
+    Button{
+        width: 100%;
     }
 
 }
