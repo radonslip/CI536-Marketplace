@@ -1,56 +1,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link href="listing.css" rel="stylesheet" type="text/css">
-    <!-- <script src="/authenticated/listing.js"></script> -->
-    <title>Listing</title>
+    <link href="/authenticated/home.css" rel="stylesheet" type="text/css">
+    <script src="/authenticated/listing.js" defer></script>
+    <title>Listing Page Test</title>
+
 </head>
 
-<body>
-
-    <div class="container">
-
-    <nav id="banner">
-        <h1 class="Header"><strong>Upload Your Product</strong></h1>
-        <img id = "img2" src = "Images/logo.jpg" alt ="user profile name">
-    </nav>
-
-
-    <aside id="sidebar">
-        <h1 class="Header"><strong>Navigation</strong></h1>
-        <button id="listings">Home Page</button>
-        <button id="users">User page</button>
-   
-       
+<div class="container">
+    <body>
+        <!-- <nav id="banner">
+            <h1>Marketplace</h1> Will switch out for buttons
+        </nav> -->
         
-    </aside>
+        <sidebar id="sidebar">
+            <h3 id="market">Marketplace</h3>
+            <button id="listings">Listings</button>
+            <a href = "../user/1"><button id="users">User page</button></a>
+        </sidebar>
 
-    <div class="cont">
-        <img id = "img" src = "Images/productImage.jpg" alt ="user profile name">
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-                <label class="productLabel" for="productName">Product Name</label>
-                <input type="text" id="productName" name="Name Of product">
-                <p></p> <!--For Spacing-->
-                <p></p><!--For Spacing-->
-                <p></p> <!--For Spacing-->
-                <label class="productDescriptionLabel" for="productDescription">Product Description</label>
-                <p></p> <!--For Spacing-->
-                <input type="text" class="textOne" id="productDescription" name="Name Of product">
-                <p></p> <!--For Spacing-->
-                <p></p><!--For Spacing-->
-                <p></p> <!--For Spacing-->
-                <label class="productPriceLabel" for="productPrice">Price</label>
-                <input type="text" id="productName" name="Name Of product">
-                <p></p> <!--For Spacing-->
-                <p></p><!--For Spacing-->
-                <p></p> <!--For Spacing-->
-                <button id="buttonOne" type="button">Upload Product</button>
-    </div>
+        <!-- <h1 id = "lisTitle" name = "lisTitle">Listing Title</h1>
+        <p id = "desc" >Description</p>
+        <h3 id = "price" >Price</h3> -->
+
+        <main>
+            <!-- <h1 id = "lisTitle">Listing Name</h1> -->
+            <!-- <div id = "images"></div> https://stackoverflow.com/questions/443700/div-with-horizontal-scrolling-only -->
+            <!-- <h2>Description:</h2>
+            <p id = "descr" >Description</p>
+            <h2>Price: </h2>
+ <h3 id = "price" >Price</h3> -->
     
-    </div>
-
-</body>
-</html>
+</main>
