@@ -7,46 +7,55 @@
     <link href="listing.css" rel="stylesheet" type="text/css">
     <!-- <script src="/authenticated/listing.js"></script> -->
     <title>Listing</title>
-    <h1 class="Header"><strong>Upload Your Product</strong></h1>
 </head>
 
 <body>
 
-    <nav class="navigation">
+    <div class="container">
+
+    <nav id="banner">
+        <h1 class="Header"><strong>Upload Your Product</strong></h1>
+        <img id = "img2" src = "Images/logo.jpg" alt ="user profile name">
+    </nav>
+
+
+    <aside id="sidebar">
+        <h1 class="Header"><strong>Navigation</strong></h1>
+        <button id="listings">Home Page</button>
+        <button id="users">User page</button>
+        <p></p> <!--For Spacing-->
+        <p></p> <!--For Spacing-->
+        <button id = "userLogin">Login</button>
+        <button id = "createAccount">Create Account</button>
         
-        <ul>
-            <li><a href="home.html">Home Page</a></li>
-            <li><a href="userCreate.html">Create Account</a></li>
-        </ul>
-        </nav>
+    </aside>
 
-   <p></p> <!--For Spacing-->
-   <p></p><!--For Spacing-->
-   <p></p> <!--For Spacing-->
+    <div class="cont">
+        <img id = "img" src = "Images/productImage.jpg" alt ="user profile name">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+                <label class="productLabel" for="productName">Product Name</label>
+                <input type="text" id="productName" name="Name Of product">
+                <p></p> <!--For Spacing-->
+                <p></p><!--For Spacing-->
+                <p></p> <!--For Spacing-->
+                <label class="productDescriptionLabel" for="productDescription">Product Description</label>
+                <p></p> <!--For Spacing-->
+                <input type="text" class="textOne" id="productDescription" name="Name Of product">
+                <p></p> <!--For Spacing-->
+                <p></p><!--For Spacing-->
+                <p></p> <!--For Spacing-->
+                <label class="productPriceLabel" for="productPrice">Price</label>
+                <input type="text" id="productName" name="Name Of product">
+                <p></p> <!--For Spacing-->
+                <p></p><!--For Spacing-->
+                <p></p> <!--For Spacing-->
+                <button id="buttonOne" type="button">Upload Product</button>
+    </div>
+    
+    </div>
 
-<div class="container">
-    <img id = "img" src = "Images/productImage.jpg" alt ="user profile name">
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-            <label class="productLabel" for="productName">Product Name</label>
-            <input type="text" id="productName" name="Name Of product">
-            <p></p> <!--For Spacing-->
-            <p></p><!--For Spacing-->
-            <p></p> <!--For Spacing-->
-            <label class="productDescriptionLabel" for="productDescription">Product Description</label>
-            <p></p> <!--For Spacing-->
-            <input type="text" class="textOne" id="productDescription" name="Name Of product">
-            <p></p> <!--For Spacing-->
-            <p></p><!--For Spacing-->
-            <p></p> <!--For Spacing-->
-            <label class="productPriceLabel" for="productPrice">Price</label>
-            <input type="text" id="productName" name="Name Of product">
-            <p></p> <!--For Spacing-->
-            <p></p><!--For Spacing-->
-            <p></p> <!--For Spacing-->
-            <button class="buttonOne" type="button">Upload Product</button>
-</div>
 </body>
 </html>

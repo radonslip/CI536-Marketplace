@@ -3,7 +3,7 @@
 body {
   margin: 0; /* Removes default body margin */
   font-family: Arial, sans-serif; /* Optional for font consistency */
-  background-color: #9affac;
+   background-color: rgb(39 208 75);
 }
 
 
@@ -14,17 +14,96 @@ main {
   overflow: scroll;
 }
 
+#banner {
+  background-color: rgb(95 237 120);
+  grid-area: banner;
+  color: black;
+  padding: 1rem;
+  border-bottom-style: solid;
+  border-color: rgb(84, 190, 2);
+  text-align: center;
+  
+}
+
+
 h1 {
 text-align: center;
 }
 
+#img2  {
+  mix-blend-mode: multiply;
+  width: 350px; 
+position: relative;
+right: 770px;
+top: -50px
+}
 
 
 
-  .container {
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 5fr;
+  grid-template-areas:
+      "banner banner"
+      "sidebar main";
+}
+
+#sidebar {
+  background-color: rgb(154, 255, 170);
+  grid-area: sidebar;
+  color: white;
+  padding: 1rem;
+  border-right-style: solid;
+  border-color: rgb(84, 190, 2);
+}
+
+#listings, #users, #userLogin, #createAccount {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: rgb(253, 253, 247);
+}
+
+#sidebar {
+  background-color: rgb(154, 255, 170);
+  grid-area: sidebar;
+  color: white;
+  padding: 1rem;
+  border-right-style: solid;
+  border-color: rgb(84, 190, 2);
+}
+
+#listings:hover{
+  background-color: blueviolet;
+  color: rgb(253, 253, 247);
+}
+
+    
+  #users:hover{
+  background-color: blueviolet;
+  color: rgb(253, 253, 247);
+}
+
+#userLogin:hover{
+  background-color: blueviolet;
+  color: rgb(253, 253, 247);
+}
+
+#createAccount:hover{
+  background-color: blueviolet;
+  color: rgb(253, 253, 247);
+}
+
+
+
+  .cont {
       
           background-color: #fbfbca;
-          width: 700px;
+          width: 1100px;
           border: 10px solid rgb(0, 0, 0);
           height: 900px;
           padding: 50px;
@@ -39,9 +118,9 @@ text-align: center;
   .containerTwo {
     border: #000;
 
-    width: 550px;
+    width: 950px;
 
-    height: 500px;
+    height: 550px;
 
     padding: 50px;
 
@@ -117,7 +196,7 @@ text-align: center;
 .navigation {
 
 border: 5;
-background-color: #fbfbca;
+background-color: #fbfbca;;
 border-style:solid;
 border-color: black;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -170,9 +249,19 @@ color: #9c9c9c;
 
 
 @media (max-width: 900px) {
-.container{
-  width: auto;
+  .container{
+    width: auto;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5fr;
+    grid-template-areas:
+        "sidebar"
+        "main";
+  }
 
+  #banner{
+    display: none;
 }
 
 .navigation {
@@ -184,4 +273,15 @@ display: inline;
 .body {
   display: none;
 }
+
+#sidebar{
+  border-bottom-style: solid;
+  border-color: rgb(84, 190, 2);
+}
+
+
+}
+
+a {
+  text-decoration: none;
 }
