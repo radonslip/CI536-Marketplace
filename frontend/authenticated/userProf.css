@@ -2,7 +2,7 @@
 
 body {
   margin: 0; /* Removes default body margin */
-  font-family: Arial, sans-serif; /* Optional for font consistency */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;/* Optional for font consistency */
    background-color: rgb(39 208 75);
 }
 
