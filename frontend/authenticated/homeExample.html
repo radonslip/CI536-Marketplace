@@ -4,27 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link href="home.css" rel="stylesheet" type="text/css">
-    <script src="home.js"></script>
+    <link href="/authenticated/home.css" rel="stylesheet" type="text/css">
+    <script src="/authenticated/home.js" defer></script>
     <title>Market place home screen</title>
 </head>
 <div class="container">
 
 <nav id="banner">
-    <h1 id="head">Marketplace</h1>
-    <img id = "img2" src = "Images/logo.jpg" alt ="user profile name">
+    <!-- <h1 id="head">Marketplace</h1> -->
+    <img id = "img2" src = "/authenticated/Images/logo.jpg" alt ="user profile name">
 </nav>
 
 <aside id="sidebar">
     <h3 id="market">Navigation</h3>
 
-    <a href="listing.html">
-    <button id="listings">Upload Your product</button>
-</a>
+    <a href="/create/listing">
+    <button>Upload Your product</button>
+    </a>
 
-<a href="userProf.html"> 
-<button id="users">Your Profile</button>
-</a>
+    <a href="userProf.html"> 
+    <button id="users">Your Profile</button>
+    </a>
           
 </aside>
 
@@ -32,16 +32,35 @@
 <main>
     <h2>Home page</h2>
     <label for="searches">Search</label>
-    <input type="text" id="searches">
-    <input type="submit" id="submit"></button>
+    <input type="text" id="search">
+    <input type="submit" id="submit">
     <p></p>
 
-    <div id="testList">
+    <div id="listingsList">
+
+    </div>
+
+    <div id="listing 2">
         <h3 id="listTitle">hi</h3>
-        <img id="img" src="Images/productImage.jpg" alt="black square with a lightblue squiqqle">
+        <img id="img" src="Images/genlogo.png" alt="black square with a lightblue squiqqle">
         <p id="price">£10</p>
         <p id="descibe">squiqqle</p>
     </div>
+
+    <div id="listing3">
+        <h3 id="listTitle">hi</h3>
+        <img id="img" src="Images/genlogo.png" alt="black square with a lightblue squiqqle">
+        <p id="price">£10</p>
+        <p id="descibe">squiqqle</p>
+    </div>
+
+    <div id="listing4">
+        <h3 id="listTitle">hi</h3>
+        <img id="img" src="Images/genlogo.png" alt="black square with a lightblue squiqqle">
+        <p id="price">£10</p>
+        <p id="descibe">squiqqle</p>
+    </div>
+    
  
 </main>
 

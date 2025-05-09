@@ -1,5 +1,6 @@
 // How many listings should be displayed on the home page
 let num = 15;
+console.log("Home Page JS Loaded");
 
 // Load the default home page
 defaultListing();
