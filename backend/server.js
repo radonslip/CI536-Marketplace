@@ -5,7 +5,6 @@ const path = require('path');
 const bodyParser = require('body-parser'); //for handling data from form
 const session = require('express-session'); //manage user session so they 
 const bcrypt = require('bcrypt'); //for hashing passwords https://medium.com/@vuongtran/using-node-js-bcrypt-module-to-hash-password-5343a2aa2342
-// const multer = require("multer"); // Used for saving images uploaded to the server
 const { IncomingForm } = require('formidable');
 
 const fs = require("fs");
@@ -17,21 +16,6 @@ const port = 4500;
 const encoder = bodyParser.urlencoded({extended:true}); //https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 
 const app = express();
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) =>
-//     {
-//         console.log(req)
-//         cb(null, "Images")
-//     },
-//     filename: (req, file, cb) =>
-//     {
-//         console.log(file)
-//         cb(null, Date.now() + path.extname(file.originalname))
-//     }
-// })
-
-// const upload = multer({storage: storage})
 
 app.use('/authenticated', express.static(path.join(__dirname, '../frontend/authenticated')));
 app.use('/unauthenticated', express.static(path.join(__dirname, '../frontend/unauthenticated')));
@@ -57,8 +41,8 @@ app.use((req, res, next) => {
 //connect to db
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: '1234',
+    user: 'tg571_node',
+    password: 'ciG6wbVuQk.o',
     database: 'sys'
 });
 
