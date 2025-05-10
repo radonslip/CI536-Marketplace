@@ -25,7 +25,7 @@ app.use(express.json());
 
 //express session
 app.use(session({
-    secret: 'secret',
+    secret: 'ci536_marketplace_secret',
     resave: false,
     saveUninitialized: true,
     cookie: {secure: false} //todo false for local dev
@@ -176,7 +176,7 @@ app.post("/home", encoder, isAuthenticated, function(req,res){
 
 //get user profile page
 app.get("/user/:user_id", isAuthenticated,function(req,res){
-    res.sendFile('userProf.html', {root: path.join(__dirname, '../frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
+    res.sendFile('userProf.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
 });
 
 //get user session id for navigation
@@ -195,12 +195,12 @@ app.get("/session/user", isAuthenticated, function (req, res) {
 
 //get user creation page
 app.get("/create/user", function(req,res){
-    res.sendFile('userCreate.html', {root: path.join(__dirname, '../frontend/unauthenticated/')});
+    res.sendFile('userCreate.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated/')});
 });
 
 //get listing creation page
 app.get("/create/listing", isAuthenticated, function(req,res){
-    res.sendFile('createListing.html', {root: path.join(__dirname, '../frontend/authenticated/')});
+    res.sendFile('createListing.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/')});
 });
 
 //create user when form submitted
@@ -302,7 +302,7 @@ app.post("/create/listing/", encoder, async function(req,res){
 })
 
 app.get("Images/profilepicture.jpg", isAuthenticated,function(req,res){
-    const imagePath = path.join(__dirname, `../frontend/authenticated/Images/profilepicture.jpg`);
+    const imagePath = path.join(__dirname, '../../public_html/ci536-marketplace/frontend/authenticated/Images/profilepicture.jpg');
     console.log(imagePath)
 
     res.sendFile(imagePath, (err) => {
