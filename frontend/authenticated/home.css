@@ -77,6 +77,11 @@ button{
     background-color: blueviolet;
     color: rgb(253, 253, 247);
 }
+
+#createListingButton:hover{
+    background-color: blueviolet;
+    color: rgb(253, 253, 247);
+  }
   
 
 main {

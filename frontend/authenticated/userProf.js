@@ -54,7 +54,7 @@ function listingCreate(data)
     listingLink.appendChild(image);
 
     price = document.createElement("p");
-    price.textContent = data.listing_price;
+    price.textContent = "£" + data.listing_price;
     listingLink.appendChild(price);
 
     document.querySelector(".containerTwo").appendChild(listing);

@@ -33,7 +33,7 @@ function listingCreate(data)
     listing.appendChild(listingLink);
 
     title = document.createElement("h3");
-    title.innerText = data.listing_title;
+    title.textContent = data.listing_title;
     listingLink.appendChild(title);
 
     image = document.createElement("img");
@@ -41,7 +41,7 @@ function listingCreate(data)
     listingLink.appendChild(image);
 
     price = document.createElement("p");
-    price.innerText = data.listing_price;
+    price.textContent = "£" + data.listing_price;
     listingLink.appendChild(price);
 
     document.querySelector("#listingsList").appendChild(listing);
