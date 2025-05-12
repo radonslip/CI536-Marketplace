@@ -34,7 +34,7 @@ text-align: center;
   mix-blend-mode: multiply;
   width: 350px; 
 position: relative;
-right: 770px;
+right: 700px;
 top: -50px
 }
 
@@ -132,11 +132,11 @@ top: -50px
     overflow: auto;
   }
 
-  img {
+  /* img {
 
       mix-blend-mode: multiply;
 
-  }
+  } */
 
 #h1 {
 
@@ -281,4 +281,17 @@ display: inline;
 
 a {
   text-decoration: none;
+}
+
+/* added to look more like home page */
+li {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    background-color: rgb(154, 255, 170);
+}
+.listingImage{
+    max-width: 400px;
+    min-width: 400px;
+    display: inline;
 }

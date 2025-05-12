@@ -39,7 +39,7 @@ fetch("/user/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'applic
 function listingCreate(data)
 {
     // Create the listing and add it to the profile page
-    const listing = document.createElement("div");
+    const listing = document.createElement("li");
     listingLink = document.createElement("a");
     listingLink.href = "../listing/" + data.listing_id;
     listing.appendChild(listingLink);
@@ -50,6 +50,7 @@ function listingCreate(data)
 
     image = document.createElement("img");
     image.src = "/listing/" + data.listing_id + "/" + 0;
+    image.className = "listingImage";
     listingLink.appendChild(image);
 
     price = document.createElement("p");
