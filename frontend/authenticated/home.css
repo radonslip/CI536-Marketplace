@@ -180,4 +180,6 @@ ul {
 li {
     display: inline-block;
     vertical-align: top;
+    margin: 10px;
+    background-color: rgb(154, 255, 170);
 }
