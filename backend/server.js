@@ -28,7 +28,7 @@ app.use(session({
     secret: 'ci536_marketplace_secret',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: true} //true for deployment
+    cookie: {secure: false} //cant set to true, would need server configuration on brighton domains
 }));
 app.use((req, res, next) => {
     //console.log("session: ", req.session);
