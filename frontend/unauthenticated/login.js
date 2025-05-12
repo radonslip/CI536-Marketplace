@@ -49,10 +49,6 @@ window.addEventListener('load', function () {
 
     });
 
-    this.document.querySelector("#userCreate").addEventListener("click", function () {
-        window.location.href = "create/user";
-    });
-
     //show error message
     const urlParams = new URLSearchParams(window.location.search);
     const errorMessage = urlParams.get('error');
