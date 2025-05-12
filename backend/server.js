@@ -28,7 +28,7 @@ app.use(session({
     secret: 'ci536_marketplace_secret',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false} //todo false for local dev
+    cookie: {secure: true} //true for deployment
 }));
 app.use((req, res, next) => {
     //console.log("session: ", req.session);
