@@ -78,7 +78,7 @@ body {
         padding: 0;
         }
 
-#listings, #users, #userLogin, #createAccount, #buttonOne {
+#listings, #users, #userLogin, #createAccount, #buttonOne, #logout {
     display: block;
     width: 100%;
     padding: 1em;
@@ -91,6 +91,12 @@ body {
     background-color: blueviolet;
     color: rgb(253, 253, 247);
 }
+
+#logout:hover{
+    background-color: blueviolet;
+    color: rgb(253, 253, 247);
+}
+
 
       
     #users:hover{

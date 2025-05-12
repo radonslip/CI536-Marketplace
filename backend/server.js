@@ -69,6 +69,7 @@ function isAuthenticated(req,res,next){
 
 //get login page
 app.get("/",function(req,res){
+    req.session.destroy();
     res.sendFile('login.html', {root: path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated/')}); //https://stackoverflow.com/questions/25463423/res-sendfile-absolute-path
     //res.sendFile(path.join(__dirname, '../../public_html/ci536-marketplace/frontend/unauthenticated/login.html'));
 });
