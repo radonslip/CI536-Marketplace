@@ -391,13 +391,30 @@ app.post("/listing/:listing_id", encoder, isAuthenticated, function(req,res){
         else if (results.length > 0) 
         {
             // If the listing was found return the data about it
-            return res.json({
-                status: 'success',
-                title: results[0].listing_title,
-                desc: results[0].listing_description,
-                price: results[0].listing_price,
-                numOImg: count
-            })
+            connection.query("SELECT user_display_name FROM users where user_id = ?", [results[0].user_id], (err, userResults) => {
+                if (err)
+                {
+                    res.status(500).json({ error: "Database error" });
+                }
+                else if (userResults.length > 0)
+                {
+                    return res.json({
+                        status: 'success',
+                        title: results[0].listing_title,
+                        desc: results[0].listing_description,
+                        price: results[0].listing_price,
+                        user_id: results[0].user_id,
+                        user: userResults[0].user_display_name,
+                        numOImg: count,
+                    });
+                }
+                else 
+                {
+                    // If the listing was not found then throw an error
+                    console.log("not found")
+                    res.status(404).json({ error: "Listing not found" });
+                }
+            });
         } 
         else 
         {
