@@ -58,6 +58,10 @@ function listingCreate(data)
   price.innerText = "£" + data.price;
   listing.appendChild(price);
 
+  user = document.createElement("a");
+  user.textContent = "Seller: " + data.user;
+  user.href = "/user/" + data.user_id;
+  listing.appendChild(user);
 
   // add the listing itself to the main object
   document.querySelector("main").appendChild(listing);
