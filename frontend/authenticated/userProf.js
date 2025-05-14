@@ -1,6 +1,8 @@
 // Get the user id from the URL
 let loc = window.location.href;
-let id = loc[loc.length-1]
+var parts = loc.split('/');
+var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+let id = lastSegment;
 // retreive user info
 fetch("/user/" + id,{method:"POST",mode:"cors", headers:{'Content-Type': 'application/json'}, body: JSON.stringify({userID:id})})
 .then(res=> res.json())
