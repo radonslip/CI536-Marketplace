@@ -39,11 +39,12 @@ app.use((req, res, next) => {
 });
 
 //connect to db
+//ENTER LOGIN DETAILS HERE
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'tg571_node',
-    password: 'ciG6wbVuQk.o',
-    database: 'sys'
+    user: '',
+    password: '',
+    database: ''
 });
 
 //connect to db
