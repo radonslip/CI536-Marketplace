@@ -97,7 +97,7 @@ fetch("/session/user")
     .then((res) => res.json())
     .then((data) => {
         if (data.user_id) {
-            document.querySelector("#userProfile").href = `/user/${data.user_id}`;
+            document.querySelector("#userProfile").action = `/user/${data.user_id}`;
         } else {
             console.error("Failed to fetch user ID");
         }
