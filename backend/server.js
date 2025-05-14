@@ -221,9 +221,10 @@ app.post("/create/user/", encoder, async function(req,res){
     });
 });
 
-//create user when form submitted
+//create listing
 app.post("/create/listing/", encoder, async function(req,res){
 
+    // temporatily store images in the uploads folder
     const form = new IncomingForm({
         uploadDir: path.join(__dirname, 'uploads'),
         keepExtensions: true,
@@ -235,14 +236,16 @@ app.post("/create/listing/", encoder, async function(req,res){
             return res.status(500).json({ error: 'Form parsing failed' });
         }
 
-
+        // Set the image as a variable for later reference
         let uploadedFile = files.imgProduct[0];
 
+        // Set listing data as variable and initialise the user id
         let listName = fields.nameProduct[0]
         let listDesc = fields.descProduct[0]
         let listPrice = fields.priceProduct[0]
         let listUser = ""
 
+        // find the user who is uploading the listing
         connection.query("SELECT user_id FROM users WHERE user_name = ?", [req.session.user], (err, results) => {
             if (err) 
             {
@@ -251,10 +254,12 @@ app.post("/create/listing/", encoder, async function(req,res){
             } 
             else if (results.length > 0) 
             {
+                // Set the user id
                 listUser = results[0].user_id
 
                 console.log(listName,listDesc,listPrice,listUser)
 
+                // Insert the listing into the database
                 connection.query("INSERT INTO listings (listing_title, listing_description, listing_price, user_id) VALUES (?)", [[listName, listDesc, listPrice, listUser]], async function(err,results,fields){
                     if(err) {
                         console.log(`Error creating listing: ${listName}: `, err);
@@ -262,11 +267,13 @@ app.post("/create/listing/", encoder, async function(req,res){
                     else {
                         console.log("Listing created: ", listName);
 
+                        // Find the new listing's id
                         connection.query("SELECT listing_id FROM listings ORDER BY listing_created DESC LIMIT 1", async function(err,results,fields){
                             if(err) {
                                 console.log("Error finding listing", err);
                             }
                             else {
+                                // Using the new listing id, move the image from the uploads folder to the listings folder structure
                                 console.log(results[0])
                                 imgPath = path.join(__dirname , "../listings/", String(results[0].listing_id),"0.png")
                                 console.log(imgPath)
